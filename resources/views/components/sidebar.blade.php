@@ -3,7 +3,7 @@
     <!-- Sidebar scroll-->
     <div>
       <div class="brand-logo d-flex align-items-center justify-content-between">
-        <a href="./index.html" class="text-nowrap logo-img">
+        <a href="{{ route('index') }}" class="text-nowrap logo-img">
           {{-- <img src="{{ asset('../assets/images/logos/dark-logo.svg') }}" width="180" alt="" /> --}}
           <p style="font-size: 24px;"><b>Task Manager</b></p>
         </a>
@@ -19,7 +19,7 @@
             <span class="hide-menu">Home</span>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="./index.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('index') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-layout-dashboard"></i>
               </span>
@@ -40,12 +40,12 @@
                 </span>
                 <span class="hide-menu">Project Manager</span>
               </a>
-              <ul class="collapse list-unstyled" id="dropdownButtons" data-bs-parent="#sidebarAccordion">
+              <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownButtons" data-bs-parent="#sidebarAccordion">
                 <li>
-                  <a class="sidebar-link" href="./ui-buttons-basic.html">Projects</a>
+                  <a class="sidebar-link" href="{{ route('project_listing') }}">Projects</a>
                 </li>
                 <li>
-                  <a class="sidebar-link" href="./ui-buttons-advanced.html">Create_project</a>
+                  <a class="sidebar-link" href="{{ route('new_project') }}">Create_project</a>
                 </li>
               </ul>
             </li>
@@ -58,12 +58,12 @@
                 </span>
                 <span class="hide-menu">Task Manager</span>
               </a>
-              <ul class="collapse list-unstyled" id="dropdownForms" data-bs-parent="#sidebarAccordion">
+              <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownForms" data-bs-parent="#sidebarAccordion">
                 <li>
-                  <a class="sidebar-link" href="./ui-forms-basic.html">Tasks</a>
+                  <a class="sidebar-link" href="{{ route('task_listing') }}">Tasks</a>
                 </li>
                 <li>
-                  <a class="sidebar-link" href="./ui-forms-advanced.html">Create Task</a>
+                  <a class="sidebar-link" href="{{ route('new_task') }}">Create Task</a>
                 </li>
               </ul>
             </li>
@@ -76,12 +76,12 @@
                 </span>
                 <span class="hide-menu">Company Manager</span>
               </a>
-              <ul class="collapse list-unstyled" id="dropdownTables" data-bs-parent="#sidebarAccordion">
+              <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownTables" data-bs-parent="#sidebarAccordion">
                 <li>
-                  <a class="sidebar-link" href="./ui-tables-basic.html">Company</a>
+                  <a class="sidebar-link" href="{{ route("company_listing") }}">Company</a>
                 </li>
                 <li>
-                  <a class="sidebar-link" href="./ui-tables-advanced.html">Create New Companies</a>
+                  <a class="sidebar-link" href="{{ route('new_companay') }}">Create New Companies</a>
                 </li>
               </ul>
             </li>
@@ -94,12 +94,12 @@
                 </span>
                 <span class="hide-menu">Intern Manager</span>
               </a>
-              <ul class="collapse list-unstyled" id="dropdownCharts" data-bs-parent="#sidebarAccordion">
+              <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownCharts" data-bs-parent="#sidebarAccordion">
                 <li>
-                  <a class="sidebar-link" href="./ui-charts-basic.html">Intern</a>
+                  <a class="sidebar-link" href="{{ route('intern_listing') }}">Intern</a>
                 </li>
                 <li>
-                  <a class="sidebar-link" href="./ui-charts-advanced.html">Create New Interns</a>
+                  <a class="sidebar-link" href="{{ route('new_intern') }}">Create New Interns</a>
                 </li>
               </ul>
             </li>
@@ -112,12 +112,12 @@
                   </span>
                   <span class="hide-menu">Supervisor Manager</span>
                 </a>
-                <ul class="collapse list-unstyled" id="dropdownsupervisor" data-bs-parent="#sidebarAccordion">
+                <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownsupervisor" data-bs-parent="#sidebarAccordion">
                   <li>
-                    <a class="sidebar-link" href="./ui-charts-basic.html">Supervisor</a>
+                    <a class="sidebar-link" href="{{ route('Supervisor_listing') }}">Supervisor</a>
                   </li>
                   <li>
-                    <a class="sidebar-link" href="./ui-charts-advanced.html">Create New Supervisor
+                    <a class="sidebar-link" href="{{ route('new_supervisor') }}">Create New Supervisor
                   </li>
                 </ul>
               </li>
@@ -131,7 +131,7 @@
             <span class="hide-menu">AUTH</span>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('login') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-login"></i>
               </span>
@@ -139,18 +139,18 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('register') }}" aria-expanded="false">
               <span>
                 <i class="ti ti-user-plus"></i>
               </span>
               <span class="hide-menu">Register</span>
             </a>
           </li>
-          <li class="nav-small-cap">
+          {{-- <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu">EXTRA</span>
-          </li>
-          <li class="sidebar-item">
+          </li> --}}
+          {{-- <li class="sidebar-item">
             <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
               <span>
                 <i class="ti ti-mood-happy"></i>
@@ -177,7 +177,7 @@
               <img src="../assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
             </div>
           </div>
-        </div>
+        </div> --}}
       </nav>
       <!-- End Sidebar navigation -->
     </div>

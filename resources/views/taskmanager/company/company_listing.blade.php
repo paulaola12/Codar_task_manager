@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
 </head>
 
-<body>
+<body class="bg-secondary p-2 text-dark bg-opacity-10">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -19,7 +19,7 @@
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      <header class="app-header">
+      {{-- <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
@@ -36,7 +36,7 @@
           </ul>
           
         </nav>
-      </header>
+      </header> --}}
       <!--  Header End -->
       {{-- content start --}}
       <div class="container mt-5">

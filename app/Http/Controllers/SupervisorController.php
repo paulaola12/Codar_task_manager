@@ -1,44 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Admin;
 
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class SupervisorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('index');
+        return view('taskmanager.supervisor.supervisor_listing');
     }
-
-     /**
-     * Display Log-in page for Admin.
-     */
-    public function login()
-    {
-        return view('login');
-    }
-
-     /**
-     * Display Registeration page for Admin.
-     */
-    public function register()
-    {
-        return view('register');
-    }
-
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('taskmanager.supervisor.supervisor_new');
     }
 
     /**

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
 </head>
 
-<body>
+<body class="bg-secondary p-2 text-dark bg-opacity-10">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -19,7 +19,7 @@
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      <header class="app-header">
+      {{-- <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
@@ -63,52 +63,59 @@
             </ul>
           </div>
         </nav>
-      </header>
+      </header> --}}
       <!--  Header End -->
       {{-- content start --}}
         <div style="margin-top: 100px"  class="container mt-5">
+          
             <h2 class="text-center mb-4">New Project</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Project Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+              <div class="row justify-content-center">
+                <div class="col-10">
+                  <form >
+                    <div class="mb-3">
+                        <label for="name" class="form-label fs-4">Project Name</label>
+                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label fs-4">Project Category</label>
+                        <input type="email" class="form-control  bg-secondary-subtle" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="subject" class="form-label fs-4">Priority</label>
+                        <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
+                    </div>
+                    <div class="mb-3">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="startDate" class="form-label fs-4">Start Date</label>
+                                    <input type="date" class="form-control  bg-secondary-subtle" id="startDate">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="endDate" class="form-label fs-4">End Date</label>
+                                    <input type="date" class="form-control  bg-secondary-subtle" id="endDate">
+                                </div>
+                            </div>  
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label fs-4">Additional Note</label>
+                        <textarea class="form-control  bg-secondary-subtle" id="message" rows="4" placeholder="Write your message"></textarea>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="category" class="form-label fs-4">Assigned to</label>
+                        <select class="form-select  bg-secondary-subtle" id="category">
+                            <option value="general">Intern</option>
+                            <option value="support">Supervisor</option>
+                            <option value="feedback">Others</option>
+                        </select>
+                    </div>
+    
+                    <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
+                </form>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Project Category</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                </div>
-                <div class="mb-3">
-                    <label for="subject" class="form-label">Priority</label>
-                    <input type="text" class="form-control" id="subject" placeholder="Subject of the message">
-                </div>
-                <div class="mb-3">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="startDate" class="form-label">Start Date</label>
-                                <input type="date" class="form-control" id="startDate">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="endDate" class="form-label">End Date</label>
-                                <input type="date" class="form-control" id="endDate">
-                            </div>
-                        </div>  
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Additional Note</label>
-                    <textarea class="form-control" id="message" rows="4" placeholder="Write your message"></textarea>
-                </div>
+              </div>
+            
 
-                <div class="mb-3">
-                    <label for="category" class="form-label">Assigned to</label>
-                    <select class="form-select" id="category">
-                        <option value="general">Intern</option>
-                        <option value="support">Supervisor</option>
-                        <option value="feedback">Others</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-lg text-center">Submit</button>
-            </form>
         </div>
       {{-- content end  --}}
     </div>
