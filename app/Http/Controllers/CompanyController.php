@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\companys;
+Use App\Models\studios;
 
 class CompanyController extends Controller
 {
@@ -11,7 +13,13 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('taskmanager.company.company_listing');
+        $company = companys::with('studios')->get();;
+
+      
+
+        return view('taskmanager.company.company_listing', [
+            'company' => $company
+        ]);
     }
 
     /**
@@ -19,6 +27,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
+
         return view('taskmanager.company.company_new');
     }
 
@@ -27,7 +36,17 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request ->all());
+        $formField = $request->validate([
+            'company_name' => 'required',
+            'company_description' => 'required',
+            'studios_id' => 'required',
+        ]);
+        // dd($formField);
+
+        companys::create($formField);
+
+        return redirect('/company_manager/company_listing');
     }
 
     /**

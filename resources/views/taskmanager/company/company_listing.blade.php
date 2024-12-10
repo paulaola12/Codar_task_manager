@@ -40,55 +40,34 @@
       <!--  Header End -->
       {{-- content start --}}
       <div class="container mt-5">
-        <h2 class="text-center mb-4">PROJECTS LISTING</h2>
+        <h2 class="text-center mb-4">COMPANY LISTING</h2>
             <table class="table table-bordered table-striped text-center">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Assigned Date</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Admin name</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Compnay Description</th>
+                        <th scope="col">Studio</th>
+                        <th scope="col">Date Created</th>
+                        {{-- <th scope="col">Status</th> --}}
                         <th scope="col">Update</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Edit</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
+                  @foreach ($company as $company)
+                  <tr>
+                    <th scope="row">{{ $company->id }}</th>
+                    <td>{{ $company->company_name }}</td>
+                    <td>{{ $company->company_description }}</td>
+                    <td>{{ $company->studio->name ?? 'No Studio'}}</td>
+                    <td>{{ $company->created_at }}</td>
+                    <td>
+                      <a href="#" class="btn btn-primary px-3" role="button">
+                          Edit
+                      </a>
+                    </td>
+                  </tr>
+                  @endforeach
                     
                 </tbody>
             </table>

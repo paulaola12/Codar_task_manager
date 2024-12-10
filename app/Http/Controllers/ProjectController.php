@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\companys;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -20,7 +21,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('taskmanager.projects.project_new');
+        $company = companys::latest()->get();
+
+        return view('taskmanager.projects.project_new', [
+            'company' => $company
+        ]);
     }
 
     /**
@@ -28,7 +33,18 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $formField = $request -> validate([
+           'project_name' => 'required',
+            'project_description' => 'required',
+             'priority_id' => 'required',
+            'company' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'message' => 'required',
+        ]);
+
+        dd($formField);
     }
 
     /**

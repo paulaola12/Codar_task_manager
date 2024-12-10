@@ -71,44 +71,55 @@
             <h2 class="text-center mb-4">New Project</h2>
               <div class="row justify-content-center">
                 <div class="col-10">
-                  <form >
+                  <form action="{{ route('create_project') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label fs-4">Project Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" id="name" placeholder="Enter your name">
+                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="project_name" placeholder="Enter your name">
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label fs-4">Project Category</label>
-                        <input type="email" class="form-control  bg-secondary-subtle" id="email" placeholder="Enter your email">
-                    </div>
+                      <label for="message" class="form-label fs-4">Project Description</label>
+                      <textarea class="form-control  bg-secondary-subtle" name="project_description" rows="4" placeholder="Write your message"></textarea>
+                  </div>
                     <div class="mb-3">
                         <label for="subject" class="form-label fs-4">Priority</label>
-                        <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
+                        <select class="form-select  bg-secondary-subtle" name="priority_id">
+                            <option value="1">Critical</option>
+                            <option value="2">High</option>
+                            <option value="3">Medium</option>
+                            <option value="4">Low</option>
+                        </select>
                     </div>
+
+                    <div class="mb-3">
+                      <label for="subject" class="form-label fs-4">Company</label>
+                      <select class="form-select  bg-secondary-subtle" name="company">
+                        @foreach ( $company as $company )
+                            <option value="{{ $company->company_name }}">{{ $company->company_name}}</option>
+                        @endforeach
+                          
+                      </select>
+                  </div>
+
                     <div class="mb-3">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="startDate" class="form-label fs-4">Start Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="startDate">
+                                    <input type="date" class="form-control  bg-secondary-subtle" name="start_date">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="endDate" class="form-label fs-4">End Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="endDate">
+                                    <input type="date" class="form-control  bg-secondary-subtle" name="end_date">
                                 </div>
                             </div>  
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="message" class="form-label fs-4">Additional Note</label>
-                        <textarea class="form-control  bg-secondary-subtle" id="message" rows="4" placeholder="Write your message"></textarea>
-                    </div>
-    
-                    <div class="mb-3">
-                        <label for="category" class="form-label fs-4">Assigned to</label>
-                        <select class="form-select  bg-secondary-subtle" id="category">
-                            <option value="general">Intern</option>
-                            <option value="support">Supervisor</option>
-                            <option value="feedback">Others</option>
-                        </select>
-                    </div>
+                      <label for="message" class="form-label fs-4">Additional Note</label>
+                      <textarea class="form-control  bg-secondary-subtle" name="message" rows="4" placeholder="Write your message"></textarea>
+                  </div>
+
+
     
                     <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
                 </form>

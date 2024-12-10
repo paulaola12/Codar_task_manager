@@ -71,44 +71,33 @@
             <h2 class="text-center mb-4">New Project</h2>
               <div class="row justify-content-center">
                 <div class="col-10">
-                  <form >
+                  <form action="{{ route('create_company') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
-                        <label for="name" class="form-label fs-4">Project Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" id="name" placeholder="Enter your name">
+                        <label for="name" class="form-label fs-4">Company Name</label>
+                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="company_name" placeholder="Enter your Company name">
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label fs-4">Project Category</label>
-                        <input type="email" class="form-control  bg-secondary-subtle" id="email" placeholder="Enter your email">
+                        <label for="email" class="form-label fs-4">Company Description</label>
+                        <textarea class="form-control bg-secondary-subtle" name="company_description" rows="5" placeholder="Company description"></textarea>
+                        
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="subject" class="form-label fs-4">Priority</label>
-                        <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
-                    </div>
-                    <div class="mb-3">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="startDate" class="form-label fs-4">Start Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="startDate">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="endDate" class="form-label fs-4">End Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="endDate">
-                                </div>
-                            </div>  
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label fs-4">Additional Note</label>
-                        <textarea class="form-control  bg-secondary-subtle" id="message" rows="4" placeholder="Write your message"></textarea>
-                    </div>
-    
-                    <div class="mb-3">
-                        <label for="category" class="form-label fs-4">Assigned to</label>
-                        <select class="form-select  bg-secondary-subtle" id="category">
-                            <option value="general">Intern</option>
-                            <option value="support">Supervisor</option>
-                            <option value="feedback">Others</option>
+                        <label for="category" class="form-label fs-4">Studio</label>
+                        <select class="form-select  bg-secondary-subtle" name="studios_id">
+                            <option value="1">Ikeja</option>
+                            <option value="2">Yaba</option>
+                            <option value="3">Gbagada</option>
+                            <option value="4">Lekki</option>
                         </select>
                     </div>
+
+                    <div class="mb-3">
+                      <label for="subject" class="form-label fs-4">Created by</label>
+                      <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
+                  </div>
+  
     
                     <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
                 </form>

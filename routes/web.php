@@ -22,10 +22,12 @@ Route::get('/admin/register', [ AdminController::class, 'register'])->name('regi
 // Project Manager
 Route::get('project_manager/project_listing', [ProjectController::class, 'index'])->name('project_listing');
 Route::get('project_manager/new_project', [ProjectController::class,'create'])->name('new_project');
+Route::post('create_project', [ProjectController::class, 'store'])->name('create_project');
 
 // // Comopany Controller
 Route::get('/company_manager/company_listing', [CompanyController::class, 'index'])->name('company_listing');
 Route::get('/company_manager/new_company', [CompanyController::class, 'create'])->name('new_companay');
+Route::post('/create_company', [CompanyController::class, 'store'])->name('create_company');
 
 // Task Manager
 
