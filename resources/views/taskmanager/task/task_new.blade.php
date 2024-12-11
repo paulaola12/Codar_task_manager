@@ -9,61 +9,20 @@
   <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
 </head>
 
-<body class="bg-secondary p-2 text-dark bg-opacity-10">
+<body style="background-color: rgb(173, 216, 230);">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
+
+
     <!-- Sidebar Start -->
-    <x-sidebar />
-    <!--  Sidebar End -->
+    <x-sidebar :projects="$projects"/>
+<!--  Sidebar End -->
+
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      {{-- <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
-              </a>
-            </li>
-          </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a>
-              <li class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
-                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header> --}}
+     
       <!--  Header End -->
       {{-- content start --}}
         <div style="margin-top: 100px"  class="container mt-5">
@@ -73,42 +32,131 @@
                 <div class="col-10">
                   <form >
                     <div class="mb-3">
-                        <label for="name" class="form-label fs-4">Project Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" id="name" placeholder="Enter your name">
+                        <label for="name" class="form-label fs-4">Task Name</label>
+                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="task_name" placeholder="Enter your name">
                     </div>
+
+                    {{-- <div class="mb-3">
+                      <label for="category" class="form-label fs-4">project</label>
+                      <select class="form-select  bg-secondary-subtle" id="category">
+                          <option value="general">Intern</option>
+                          <option value="support">Supervisor</option>
+                          <option value="feedback">Others</option>
+                      </select>
+                  </div> --}}
+
+                  <!-- Project Select Dropdown -->
+<div class="mb-3">
+  <label for="project_name" class="form-label fs-4">Project</label>
+  <select class="form-select bg-secondary-subtle" id="project_name">
+      <option value="">Select a Project</option>
+      @foreach ($projects as $project)
+          <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+      @endforeach
+  </select>
+</div>
+
+<!-- Div to display project details -->
+<div id="project_details"></div>
+
+<!-- Include jQuery (you can also use vanilla JavaScript if preferred) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+      $('#project_name').on('change', function () {
+          var projectName = $(this).val();  // Get the selected project name
+
+          if (projectName) {
+              // Make an AJAX request to get project details
+              $.ajax({
+                  url: '/project-form/' + projectName,  // URL of the controller method
+                  type: 'GET',
+                  success: function (data) {
+                      if (data.error) {
+                          // Show an error message if project not found
+                          $('#project_details').html('<p>' + data.error + '</p>');
+                      } else {
+                          // Display project details dynamically
+                          $('#project_details').html(`
+                              <div class="card">
+                                  <div class="card-body">
+                                      <h5 class="card-title">${data.project_name}</h5>
+                                      <p class="card-text"><strong>Description:</strong> ${data.project_description}</p>
+                                      <p class="card-text"><strong>Company:</strong> ${data.company}</p>
+                                      <p class="card-text"><strong>Start Date:</strong> ${data.start_date}</p>
+                                      <p class="card-text"><strong>End Date:</strong> ${data.end_date}</p>
+                                  </div>
+                              </div>
+                          `);
+                      }
+                  },
+                  error: function () {
+                      // Handle any errors from the AJAX request
+                      $('#project_details').html('<p>Error fetching project details. Please try again.</p>');
+                  }
+              });
+          } else {
+              // Clear project details if no project is selected
+              $('#project_details').html('');
+          }
+      });
+  });
+</script>
+
+                
+                 
+             
+                  <div class="mb-3">
+                    <label for="category" class="form-label fs-4">project</label>
+                    <select class="form-select  bg-secondary-subtle" id="category">
+                        <option value="general">made</option>
+                        <option value="support">Super</option>
+                        <option value="feedback">Other</option>
+                    </select>
+                </div>
+
                     <div class="mb-3">
-                        <label for="email" class="form-label fs-4">Project Category</label>
-                        <input type="email" class="form-control  bg-secondary-subtle" id="email" placeholder="Enter your email">
+                        <label for="subject" class="form-label fs-4">Project_description</label>
+                        <input type="text" class="form-control  bg-secondary-subtle" name="project_description" placeholder="Subject of the message">
                     </div>
+
                     <div class="mb-3">
-                        <label for="subject" class="form-label fs-4">Priority</label>
-                        <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
-                    </div>
+                      <label for="subject" class="form-label fs-4">priority</label>
+                      <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
+                  </div>
+
+
                     <div class="mb-3">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="startDate" class="form-label fs-4">Start Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="startDate">
+                                    <input type="date" class="form-control  bg-secondary-subtle" name="start_date">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="endDate" class="form-label fs-4">End Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="endDate">
+                                    <input type="date" class="form-control  bg-secondary-subtle" name="end_date">
                                 </div>
                             </div>  
                     </div>
+
                     <div class="mb-3">
-                        <label for="message" class="form-label fs-4">Additional Note</label>
-                        <textarea class="form-control  bg-secondary-subtle" id="message" rows="4" placeholder="Write your message"></textarea>
-                    </div>
-    
-                    <div class="mb-3">
-                        <label for="category" class="form-label fs-4">Assigned to</label>
+                        <label for="category" class="form-label fs-4">Intern Name</label>
                         <select class="form-select  bg-secondary-subtle" id="category">
                             <option value="general">Intern</option>
                             <option value="support">Supervisor</option>
                             <option value="feedback">Others</option>
                         </select>
                     </div>
+
+                    <div class="mb-3">
+                      <label for="category" class="form-label fs-4">Supervisor Name</label>
+                      <select class="form-select  bg-secondary-subtle" id="category">
+                          <option value="general">Intern</option>
+                          <option value="support">Supervisor</option>
+                          <option value="feedback">Others</option>
+                      </select>
+                  </div>
     
                     <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
                 </form>

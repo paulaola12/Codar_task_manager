@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
 </head>
 
-<body class="bg-secondary p-2 text-dark bg-opacity-10">
+<body style="background-color: rgb(173, 216, 230);">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -40,7 +40,8 @@
       <!--  Header End -->
       {{-- content start --}}
       <div class="container mt-5">
-        <h2 class="text-center mb-4">PROJECTS LISTING</h2>
+        <h2 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">Supervisor Listing</h2>
+
             <table class="table table-bordered table-striped text-center">
                 <thead class="table-dark">
                     <tr>

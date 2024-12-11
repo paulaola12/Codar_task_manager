@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\companys;
 Use App\Models\studios;
+use Illuminate\Support\Facades\DB;
+
 
 class CompanyController extends Controller
 {
@@ -13,9 +15,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $company = companys::with('studios')->get();;
-
-      
+        $company = DB::table('companys')
+        ->join('studios', 'companys.studios_id', '=', 'studios.id')
+        ->select('companys.id', 'companys.company_name', 'companys.company_description', 'companys.created_at','studios.studio')
+        ->get();
 
         return view('taskmanager.company.company_listing', [
             'company' => $company

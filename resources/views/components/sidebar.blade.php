@@ -1,4 +1,5 @@
-<!-- Sidebar Start -->
+
+@props(['projects'])
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
     <div>
@@ -63,7 +64,11 @@
                   <a class="sidebar-link" href="{{ route('task_listing') }}">Tasks</a>
                 </li>
                 <li>
-                  <a class="sidebar-link" href="{{ route('new_task') }}">Create Task</a>
+                     
+                   {{-- <a class="sidebar-link" href="/project-form/{{ $projects->project_name }}">Create Task</a>  
+                   ">Create Task</a> --}}
+                 
+
                 </li>
               </ul>
             </li>

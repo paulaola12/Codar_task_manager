@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\companys;
+use App\Models\projects;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ProjectController extends Controller
 {
@@ -12,9 +15,55 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('taskmanager.projects.project_listing');
+        
+        $projects = DB::table('projects')
+        ->join('prioritys', 'projects.priority_id', '=', 'prioritys.id') 
+        ->select(
+            'projects.id',
+            'projects.project_name',
+            'projects.project_description',
+            'projects.start_date',
+            'projects.end_date',
+            'projects.company',
+            'prioritys.priority',
+        )
+        ->get();
+    
+        return view('taskmanager.projects.project_listing', [
+            'projects' => $projects,
+        ]);
     }
 
+   /**
+     * Show Task manager...Ajax
+     */
+    public function show($project_name)
+    {
+        
+        // dd($projects_name);
+
+        $projects = DB::table('projects')
+        ->join('prioritys', 'projects.priority_id', '=', 'prioritys.id')
+        ->select(
+            'projects.id',
+            'projects.project_name',
+            'projects.project_description',
+            'projects.start_date',
+            'projects.end_date',
+            'projects.company',
+            'prioritys.priority',
+        )
+        ->where('projects.project_name', $project_name)
+        ->first(); 
+
+        // dd([
+        //     'projects' => $projects,
+        // ]);
+
+        return view('taskmanager.task.task_new', [
+            'projects' => $projects,
+        ]);
+    }
   
     /**
      * Show the form for creating a new resource.
@@ -43,17 +92,32 @@ class ProjectController extends Controller
             'end_date' => 'required',
             'message' => 'required',
         ]);
+        
+        projects::create($formField);
 
-        dd($formField);
+        return redirect('project_manager/project_listing');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function getProjectDetails($project_name)
     {
-        //
-    }
+        // dd($project_name);
+
+        // Fetch the project based on project_name
+        $project = projects::where('project_name', $project_name)->first();
+            dd($project);
+        // If the project is found, return the project details in the view
+        if ($project) {
+            return response()->json($project);
+        } else {
+            return response()->json(['error' => 'Project not found'], 404);
+        }
+    
+        }
+ 
+    
+
+
+   
 
     /**
      * Show the form for editing the specified resource.

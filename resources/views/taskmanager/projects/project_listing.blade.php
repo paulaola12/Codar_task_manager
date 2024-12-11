@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
 </head>
 
-<body class="bg-secondary p-2 text-dark bg-opacity-10">
+<body style="background-color: rgb(173, 216, 230);">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -40,55 +40,38 @@
       <!--  Header End -->
       {{-- content start --}}
       <div class="container mt-5">
-        <h2 class="text-center mb-4">PROJECTS LISTING</h2>
+        <h2 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">Project Listing</h2>
+
             <table class="table table-bordered table-striped text-center">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Project</th>
-                        <th scope="col">Assigned Date</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Admin name</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Project_description</th>
+                        <th scope="col">Company</th>
+                        <th scope="col">priority</th>
+                        {{-- <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th> --}}
                         <th scope="col">Update</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Edit</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
+                  @foreach ($projects as $projects)
+                  <tr>
+                    <th>{{ $projects->id }}</th>
+                    <td>{{ $projects->project_name }}</td>
+                    <td>{{ $projects->project_description }}</td>
+                    <td>{{ $projects->company }}</td>
+                    <td>{{ $projects->priority }}</td>
+                    
+                    {{-- <td>{{ $projects->start_date }}</td>
+                    <td>{{ $projects->end_date }}</td> --}}
+                    <td>Update</td>
+                </tr>
+                  @endforeach
+                    
+                  
                     
                 </tbody>
             </table>

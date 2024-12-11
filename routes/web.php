@@ -23,6 +23,12 @@ Route::get('/admin/register', [ AdminController::class, 'register'])->name('regi
 Route::get('project_manager/project_listing', [ProjectController::class, 'index'])->name('project_listing');
 Route::get('project_manager/new_project', [ProjectController::class,'create'])->name('new_project');
 Route::post('create_project', [ProjectController::class, 'store'])->name('create_project');
+Route::get('/project-form/{project_name}', [ProjectController::class, 'getProjectDetails'])->name('task.form');
+Route::get('/projects/{project_name}', [ProjectController::class, 'show'])->name('projects.show');
+
+
+
+
 
 // // Comopany Controller
 Route::get('/company_manager/company_listing', [CompanyController::class, 'index'])->name('company_listing');
@@ -32,7 +38,8 @@ Route::post('/create_company', [CompanyController::class, 'store'])->name('creat
 // Task Manager
 
 Route::get('/task_manager/task', [TaskController::class, 'index'])->name('task_listing');
-Route::get('/task_manager/new_task', [TaskController::class, 'create'])->name('new_task');
+// Route::get('/task_manager/new_task', [TaskController::class, 'create'])->name('new_task');
+
 
 // Intern Manager
 

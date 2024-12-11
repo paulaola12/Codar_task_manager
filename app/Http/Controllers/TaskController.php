@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\projects;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -11,7 +12,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('taskmanager.task.task_listing');
+        
+
+        return view('taskmanager.task.task_listing', [
+            'producta' => $producta
+        ]);
     }
 
     /**
@@ -19,7 +24,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('taskmanager.task.task_new');
+
+        return view('taskmanager.task.task_new', [
+            // 'producta' => $producta
+            'producta' => products::all() 
+        ]);
     }
 
     /**

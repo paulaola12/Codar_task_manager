@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
 </head>
 
-<body class="bg-secondary p-2 text-dark bg-opacity-10">
+<body style="background-color: rgb(173, 216, 230);">
   <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -68,7 +68,8 @@
       {{-- content start --}}
         <div style="margin-top: 100px"  class="container mt-5">
           
-            <h2 class="text-center mb-4">New Project</h2>
+          <h2 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">New Company</h2>
+
               <div class="row justify-content-center">
                 <div class="col-10">
                   <form action="{{ route('create_company') }}" method="POST">
