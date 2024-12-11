@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tasks;
+use App\Models\interns;
 use App\Models\projects;
+use App\Models\supervisors;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -12,10 +15,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        
+        $tasks = tasks::latest()->get();
 
         return view('taskmanager.task.task_listing', [
-            'producta' => $producta
+            // 'producta' => $producta,
+            'tasks' => $tasks
         ]);
     }
 
@@ -25,10 +29,14 @@ class TaskController extends Controller
     public function create()
     {
         $projects = projects::latest()->get();
+        $intern = interns::latest()->get();
+        $supervisor = supervisors::latest()->get();
 
         // dd($projects);
         return view('taskmanager.task.task_new', [
-            'projects' => $projects
+            'projects' => $projects,
+            'intern' => $intern,
+            'supervisor' => $supervisor,
       
         ]);
     }
@@ -40,19 +48,32 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+
+       $formField = $request -> validate([
+            'task_name' => 'required',
+            'project_name' => 'required',
+            'priority' => 'required',
+            'intern' => 'required',
+            'supervisor' => 'required',
+
+       ]);
+
+       tasks::create($formField);
+
+    //    dd($formField);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id){
+    public function show(string $project_name){
 
 
         //  dd($id);
 
     
-        $project = projects::where('id', $id)->first();
+        $project = projects::where('project_name', $project_name)->first();
 
         // dd($project);
 

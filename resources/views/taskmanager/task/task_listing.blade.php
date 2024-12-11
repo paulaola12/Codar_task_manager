@@ -43,45 +43,29 @@
         <h2 class="text-center mb-4">PROJECTS LISTING</h2>
             <table class="table table-bordered table-striped text-center">
                 <thead class="table-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Assigned Date</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Admin name</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Update</th>
-                    </tr>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Intern</th>
+                    <th scope="col">Supervisor</th>
+                    <th scope="col">Created on</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Update</th>
+                </tr>
+                         
                 </thead>
                 <tbody>
+                  @foreach ($tasks as $tasks )
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Edit</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Thornton</td>
+                        <th scope="row">{{ $tasks->id }}</th>
+                        <td>{{ $tasks->task_name }}</td>
+                        <td>{{ $tasks->project_name }}</td>
+                        <td>{{ $tasks->priority }}</td>
+                        <td>{{ $tasks->intern }}</td>
+                        <td>{{ $tasks->supervisor }}</td>
+                        <td>{{ $tasks->created_at }}</td>
                         <td>@fat</td>
                         <td>
                             <a href="#" class="btn btn-primary px-3" role="button">
@@ -89,7 +73,7 @@
                             </a>
                         </td>
                     </tr>
-                    
+                    @endforeach
                 </tbody>
             </table>
          </div>

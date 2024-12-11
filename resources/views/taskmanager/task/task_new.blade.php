@@ -30,7 +30,8 @@
             <h2 class="text-center mb-4">New Task</h2>
               <div class="row justify-content-center">
                 <div class="col-10">
-                  <form >
+                  <form action="{{ route('create_task') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label fs-4">Task Name</label>
                         <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="task_name" placeholder="Enter your name">
@@ -48,10 +49,10 @@
                   <!-- Project Select Dropdown -->
 <div class="mb-3">
   <label for="project_name" class="form-label fs-4">Project</label>
-  <select class="form-select bg-secondary-subtle" id="project_id">
+  <select class="form-select bg-secondary-subtle" name="project_name" id="project_name">
       <option value="">Select a Project</option>
       @foreach ($projects as $project)
-          <option value="{{ $project->id }}">{{ $project->project_name }}</option>
+          <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
       @endforeach
   </select>
 </div>
@@ -64,10 +65,10 @@
 
 <script>
   $(document).ready(function () {
-      $('#project_id').on('change', function () {
+      $('#project_name').on('change', function () {
           var projectName = $(this).val();  
 
-        //   console.log('Selected Project ID:', projectName);
+        //   console.log('Selected project_id:', projectName);
 
         var url = '/task_manager/' + projectName;
             //   console.log('AJAX URL:', url);
@@ -89,7 +90,6 @@
                               <div class="card">
                                   <div class="card-body">
                                         <p class="card-title"><strong>Company Name:</strong> ${data.company}</p> 
-                                      <h5 class="card-title"><strong>Project Name:</strong>${data.project_name}</h5>
                                       <p class="card-title"><strong>Description:</strong> ${data.project_description}</p>  
                                   </div>
                               </div>
@@ -108,7 +108,7 @@
       });
   });
 </script>
-  
+                  {{-- php continues --}}
                   <div class="mb-3">
                     <label for="category" class="form-label fs-4">Priority</label>
                     <select class="form-select  bg-secondary-subtle" name="priority">
@@ -119,22 +119,26 @@
                     </select>
                 </div>
 
-                    <div class="mb-3">
-                        <label for="subject" class="form-label fs-4">Addtional Note</label>
-                        <input type="text" class="form-control  bg-secondary-subtle" name="project_description" placeholder="Subject of the message">
-                    </div>
 
                     <div class="mb-3">
                       <label for="subject" class="form-label fs-4">Assign To Intern</label>
-                      <select class="form-select  bg-secondary-subtle" name="priority">
-                        <option value="Critical"></option>
+                      <select class="form-select  bg-secondary-subtle" name="intern">
+                        <option value="Critical">Select Intern</option>
+                        @foreach ($intern as $intern)
+                        <option value="{{ $intern->intern_name }}">{{ $intern->intern_name }}</option>
+                        @endforeach
+                        
                     </select>
                   </div>
 
                   <div class="mb-3">
                     <label for="subject" class="form-label fs-4">Supervisor In Charge</label>
-                    <select class="form-select  bg-secondary-subtle" name="priority">
-                      <option value="Critical"></option>
+                    <select class="form-select  bg-secondary-subtle" name="supervisor">
+                      <option value="Nil">Select Supervisor</option>
+                      @foreach ($supervisor as $supervisor)
+                           <option value="{{ $supervisor->supervisor_name }}">{{ $supervisor->supervisor_name}}</option>
+                      @endforeach
+                      
                   </select>
                 </div>
 

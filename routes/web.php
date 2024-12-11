@@ -39,7 +39,8 @@ Route::post('/create_company', [CompanyController::class, 'store'])->name('creat
 
 Route::get('/task_manager/task', [TaskController::class, 'index'])->name('task_listing');
 Route::get('/task_manager/new_task', [TaskController::class, 'create'])->name('new_task');
-Route::get('/task_manager/{id}', [TaskController::class, 'show'])->name('new_show');
+Route::get('/task_manager/{project_name}', [TaskController::class, 'show'])->name('new_show');
+Route::post('/task_manager/create', [ TaskController::class, 'store'])->name('create_task');
 
 
 // Intern Manager
