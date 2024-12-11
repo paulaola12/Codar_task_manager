@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\supervisors;
 use Illuminate\Http\Request;
 
 class SupervisorController extends Controller
@@ -11,7 +12,12 @@ class SupervisorController extends Controller
      */
     public function index()
     {
-        return view('taskmanager.supervisor.supervisor_listing');
+        $supervisor = supervisors::latest()->get();
+
+        return view('taskmanager.supervisor.supervisor_listing', [
+
+            'supervisor' => $supervisor
+        ]);
     }
 
     /**
@@ -27,7 +33,19 @@ class SupervisorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            // dd($request->all());
+        $formField = $request -> validate([
+            'supervisor_name' => 'required',
+            'home_address' => 'required',
+            'phone_number' => 'required',
+            'studio' => 'required',
+        ]);
+
+        // dd($formField);
+
+        supervisors::create($formField);
+
+        return redirect('/supervisor_manager/supervisor');
     }
 
     /**

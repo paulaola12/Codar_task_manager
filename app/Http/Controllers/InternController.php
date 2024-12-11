@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\interns;
 use Illuminate\Http\Request;
 
 class InternController extends Controller
@@ -11,7 +12,11 @@ class InternController extends Controller
      */
     public function index()
     {
-        return view('taskmanager.intern.intern_listing');
+        $intern = interns::latest()->get();
+
+        return view('taskmanager.intern.intern_listing', [
+            'intern' => $intern
+        ]);
     }
 
     /**
@@ -27,7 +32,16 @@ class InternController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+       $formField = $request -> validate([
+            'intern_name' => 'required',
+            'batch' => 'required',
+            'studio' => 'required'
+        ]);
+
+        interns::create($formField);
+
+        return redirect('/intern_manager/intern');
     }
 
     /**

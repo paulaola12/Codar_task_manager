@@ -24,12 +24,16 @@ class TaskController extends Controller
      */
     public function create()
     {
+        $projects = projects::latest()->get();
 
+        // dd($projects);
         return view('taskmanager.task.task_new', [
-            // 'producta' => $producta
-            'producta' => products::all() 
+            'projects' => $projects
+      
         ]);
     }
+
+   
 
     /**
      * Store a newly created resource in storage.
@@ -42,10 +46,41 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
+    public function show(string $id){
+
+
+        //  dd($id);
+
+    
+        $project = projects::where('id', $id)->first();
+
+        // dd($project);
+
+        if ($project) {
+            return response()->json([
+                'project_name' => $project->project_name,
+                'project_description' => $project->project_description,
+                'company' => $project->company,
+                'start_date' => $project->start_date,
+                'end_date' => $project->end_date,
+            ]);
+        } else {
+            return response()->json(['error' => 'Project not found.'], 404);
+        }
+
+        // dd($project);
+    
+        //    return view('taskmanager.task.task_new',[
+        //      'project' => $id
+            
+        //      ]);
+
     }
+    
+        
+        
+
+    
 
     /**
      * Show the form for editing the specified resource.

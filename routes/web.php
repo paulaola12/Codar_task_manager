@@ -23,8 +23,8 @@ Route::get('/admin/register', [ AdminController::class, 'register'])->name('regi
 Route::get('project_manager/project_listing', [ProjectController::class, 'index'])->name('project_listing');
 Route::get('project_manager/new_project', [ProjectController::class,'create'])->name('new_project');
 Route::post('create_project', [ProjectController::class, 'store'])->name('create_project');
-Route::get('/project-form/{project_name}', [ProjectController::class, 'getProjectDetails'])->name('task.form');
-Route::get('/projects/{project_name}', [ProjectController::class, 'show'])->name('projects.show');
+// Route::get('/project-form/{project_name}', [ProjectController::class, 'getProjectDetails'])->name('task.form');
+Route::get('/projects', [ProjectController::class, 'show'])->name('projects.show');
 
 
 
@@ -38,15 +38,18 @@ Route::post('/create_company', [CompanyController::class, 'store'])->name('creat
 // Task Manager
 
 Route::get('/task_manager/task', [TaskController::class, 'index'])->name('task_listing');
-// Route::get('/task_manager/new_task', [TaskController::class, 'create'])->name('new_task');
+Route::get('/task_manager/new_task', [TaskController::class, 'create'])->name('new_task');
+Route::get('/task_manager/{id}', [TaskController::class, 'show'])->name('new_show');
 
 
 // Intern Manager
 
 Route::get('/intern_manager/intern', [InternController::class, 'index'])->name('intern_listing');
 Route::get('/intern_manager/new_inter', [InternController::class, 'create'])->name('new_intern');
+Route::post('/create', [InternController::class, 'store'])->name('create_intern');
 
 // Supervisor Manager 
 
 Route::get('/supervisor_manager/supervisor', [SupervisorController::class, 'index'])->name('Supervisor_listing');
 Route::get('/supervisor_manager/new_supervisor', [SupervisorController::class, 'create'])->name('new_supervisor');
+Route::post('/create', [SupervisorController::class, 'store'])->name('create_supervisor');

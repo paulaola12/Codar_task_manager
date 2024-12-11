@@ -68,53 +68,41 @@
       {{-- content start --}}
         <div style="margin-top: 100px"  class="container mt-5">
           
-          <h2 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">New Supervisor</h2>
+          <h2 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">Create New Supervisor</h2>
 
-              <div class="row justify-content-center">
-                <div class="col-10">
-                  <form >
-                    <div class="mb-3">
-                        <label for="name" class="form-label fs-4">Project Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" id="name" placeholder="Enter your name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label fs-4">Project Category</label>
-                        <input type="email" class="form-control  bg-secondary-subtle" id="email" placeholder="Enter your email">
-                    </div>
-                    <div class="mb-3">
-                        <label for="subject" class="form-label fs-4">Priority</label>
-                        <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
-                    </div>
-                    <div class="mb-3">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="startDate" class="form-label fs-4">Start Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="startDate">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="endDate" class="form-label fs-4">End Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" id="endDate">
-                                </div>
-                            </div>  
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label fs-4">Additional Note</label>
-                        <textarea class="form-control  bg-secondary-subtle" id="message" rows="4" placeholder="Write your message"></textarea>
-                    </div>
-    
-                    <div class="mb-3">
-                        <label for="category" class="form-label fs-4">Assigned to</label>
-                        <select class="form-select  bg-secondary-subtle" id="category">
-                            <option value="general">Intern</option>
-                            <option value="support">Supervisor</option>
-                            <option value="feedback">Others</option>
-                        </select>
-                    </div>
-    
-                    <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
-                </form>
+          <div class="row justify-content-center">
+            <div class="col-10">
+              <form action="{{ route('create_supervisor') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="name" class="form-label fs-4">Supervisor Name</label>
+                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="supervisor_name" placeholder="Enter your name">
                 </div>
+                <div class="mb-3">
+                  <label for="name" class="form-label fs-4">Home Address</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="home_address" placeholder="Enter your name">
+                </div>
+                <div class="mb-3">
+                  <label for="name" class="form-label fs-4">Phone number</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="phone_number" placeholder="Enter your name">
               </div>
+              
+              <div class="mb-3">
+                <label for="category" class="form-label fs-4">Studio</label>
+                <select class="form-select  bg-secondary-subtle" name="studio">
+                    <option value="Gbagada">Gbagada</option>
+                    <option value="Yaba">Yaba</option>
+                    <option value="Lekki">Lekki</option>
+                    <option value="Ikeja">Ikeja</option>
+                </select>
+            </div>
+           
+
+                <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
+
+            </form>
+            </div>
+          </div> 
             
 
         </div>

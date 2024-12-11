@@ -46,50 +46,37 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Assigned Date</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Admin name</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Supervisor</th>
+                        <th scope="col">Home Address</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Studio</th>
+                        <th scope="col">Date Created</th>
+                        <th scope="col">View</th>
                         <th scope="col">Update</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Edit</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                      @foreach ($supervisor as $supervisor)
+                      <tr>
+                        <th scope="row">{{ $supervisor->id }}</th>
+                        <td>{{ $supervisor->supervisor_name}}</td>
+                        <td>{{ $supervisor->home_address }}</td>
+                        <td>{{ $supervisor->phone_number }}</td>
+                        <td>{{ $supervisor->studio }}</td>
+                        <td>{{ $supervisor->created_at }}</td>
+                        <td>
+                          <a href="#" class="btn btn-primary px-3" role="button">
+                              View
+                          </a>
+                      </td>
                         <td>
                             <a href="#" class="btn btn-primary px-3" role="button">
                                 Edit
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
+                      @endforeach
+                   
                     
                 </tbody>
             </table>

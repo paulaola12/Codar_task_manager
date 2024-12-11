@@ -37,32 +37,36 @@ class ProjectController extends Controller
    /**
      * Show Task manager...Ajax
      */
-    public function show($project_name)
+    public function show()
     {
-        
+        // $projects = projects::latest()->get();
+            // dd($projects);
+
+
         // dd($projects_name);
 
-        $projects = DB::table('projects')
-        ->join('prioritys', 'projects.priority_id', '=', 'prioritys.id')
-        ->select(
-            'projects.id',
-            'projects.project_name',
-            'projects.project_description',
-            'projects.start_date',
-            'projects.end_date',
-            'projects.company',
-            'prioritys.priority',
-        )
-        ->where('projects.project_name', $project_name)
-        ->first(); 
-
+        // $projects = DB::table('projects')
+        // ->join('prioritys', 'projects.priority_id', '=', 'prioritys.id')
+        // ->select(
+        //     'projects.id',
+        //     'projects.project_name',
+        //     'projects.project_description',
+        //     'projects.start_date',
+        //     'projects.end_date',
+        //     'projects.company',
+        //     'prioritys.priority',
+        // )
+        // ->get();
         // dd([
         //     'projects' => $projects,
         // ]);
 
-        return view('taskmanager.task.task_new', [
-            'projects' => $projects,
-        ]);
+        // return view('taskmanager.task.task_new', [
+        //     // 'projects' => $projects
+        //     dd([
+        //            'projects' => $projects,
+        //         ])
+        // ]);
     }
   
     /**

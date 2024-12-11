@@ -46,51 +46,35 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Project</th>
-                        <th scope="col">Assigned Date</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Admin name</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Batch</th>
+                        <th scope="col">Studio</th>
+                        <th scope="col">View</th>
                         <th scope="col">Update</th>
                     </tr>
                 </thead>
                 <tbody>
+
+                    @foreach ($intern as $intern )
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Edit</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
+                      <th scope="row">{{ $intern->id }}</th>
+                      <td>{{ $intern->intern_name }}</td>
+                      <td>{{ $intern->batch }}</td>
+                      <td>{{ $intern->studio }}</td>
+                      <td>
+                        <a href="#" class="btn btn-primary px-3" role="button">
+                            Batch
+                        </a>
+                    </td>
+                      <td>
+                          <a href="#" class="btn btn-primary px-3" role="button">
+                              Edit
+                          </a>
+                      </td>
+                  </tr>
+                    @endforeach
                     
+    
                 </tbody>
             </table>
          </div>

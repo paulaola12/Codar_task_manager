@@ -1,5 +1,5 @@
 
-@props(['projects'])
+{{-- @props(['projects']) --}}
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
     <div>
@@ -65,8 +65,7 @@
                 </li>
                 <li>
                      
-                   {{-- <a class="sidebar-link" href="/project-form/{{ $projects->project_name }}">Create Task</a>  
-                   ">Create Task</a> --}}
+                   <a class="sidebar-link" href="{{ route('new_task') }}">Create Task</a>  
                  
 
                 </li>
@@ -90,24 +89,47 @@
                 </li>
               </ul>
             </li>
-          
-            <!-- Fourth Dropdown -->
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false" data-bs-toggle="collapse" data-bs-target="#dropdownCharts" aria-controls="dropdownCharts">
-                <span>
-                  <i class="ti ti-chart"></i>
-                </span>
-                <span class="hide-menu">Intern Manager</span>
-              </a>
-              <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownCharts" data-bs-parent="#sidebarAccordion">
-                <li>
-                  <a class="sidebar-link" href="{{ route('intern_listing') }}">Intern</a>
-                </li>
-                <li>
-                  <a class="sidebar-link" href="{{ route('new_intern') }}">Create New Interns</a>
-                </li>
-              </ul>
-            </li>
+
+            <div class="accordion" id="sidebarAccordion">
+              <!-- First Dropdown -->
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false" data-bs-toggle="collapse" data-bs-target="#dropdownButtons" aria-controls="dropdownButtons">
+                  <span>
+                    <i class="ti ti-article"></i>
+                  </span>
+                  <span class="hide-menu">Project Manager</span>
+                </a>
+                <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownButtons" data-bs-parent="#sidebarAccordion">
+                  <li>
+                    <a class="sidebar-link" href="{{ route('project_listing') }}">Projects</a>
+                  </li>
+                  <li>
+                    <a class="sidebar-link" href="{{ route('new_project') }}">Create_project</a>
+                  </li>
+                </ul>
+              </li>
+            
+              <!-- Second Dropdown -->
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false" data-bs-toggle="collapse" data-bs-target="#dropdownForms" aria-controls="dropdownForms">
+                  <span>
+                    <i class="ti ti-forms"></i>
+                  </span>
+                  <span class="hide-menu">Intern Manager</span>
+                </a>
+                <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownForms" data-bs-parent="#sidebarAccordion">
+                  <li>
+                    <a class="sidebar-link" href="{{ route('intern_listing') }}">Intern</a>
+                  </li>
+                  <li>
+                       
+                     <a class="sidebar-link" href="{{ route('new_intern') }}">Create New Intern</a>  
+                   
+  
+                  </li>
+                </ul>
+              </li>
+       
 
               <!-- Fifth Dropdown -->
               <li class="sidebar-item">

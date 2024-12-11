@@ -16,7 +16,7 @@
 
 
     <!-- Sidebar Start -->
-    <x-sidebar :projects="$projects"/>
+    <x-sidebar/>
 <!--  Sidebar End -->
 
     <!--  Main wrapper -->
@@ -27,7 +27,7 @@
       {{-- content start --}}
         <div style="margin-top: 100px"  class="container mt-5">
           
-            <h2 class="text-center mb-4">New Project</h2>
+            <h2 class="text-center mb-4">New Task</h2>
               <div class="row justify-content-center">
                 <div class="col-10">
                   <form >
@@ -48,83 +48,95 @@
                   <!-- Project Select Dropdown -->
 <div class="mb-3">
   <label for="project_name" class="form-label fs-4">Project</label>
-  <select class="form-select bg-secondary-subtle" id="project_name">
+  <select class="form-select bg-secondary-subtle" id="project_id">
       <option value="">Select a Project</option>
       @foreach ($projects as $project)
-          <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+          <option value="{{ $project->id }}">{{ $project->project_name }}</option>
       @endforeach
   </select>
 </div>
 
-<!-- Div to display project details -->
+
 <div id="project_details"></div>
 
-<!-- Include jQuery (you can also use vanilla JavaScript if preferred) -->
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   $(document).ready(function () {
-      $('#project_name').on('change', function () {
-          var projectName = $(this).val();  // Get the selected project name
+      $('#project_id').on('change', function () {
+          var projectName = $(this).val();  
+
+        //   console.log('Selected Project ID:', projectName);
+
+        var url = '/task_manager/' + projectName;
+            //   console.log('AJAX URL:', url);
 
           if (projectName) {
-              // Make an AJAX request to get project details
+            // console.log('AJAX Request Triggered');
+              
               $.ajax({
-                  url: '/project-form/' + projectName,  // URL of the controller method
+             
+                  url: '/task_manager/' + projectName,
+                  
                   type: 'GET',
                   success: function (data) {
+                    // console.log('Response Data:', data);
                       if (data.error) {
-                          // Show an error message if project not found
                           $('#project_details').html('<p>' + data.error + '</p>');
                       } else {
-                          // Display project details dynamically
                           $('#project_details').html(`
                               <div class="card">
                                   <div class="card-body">
-                                      <h5 class="card-title">${data.project_name}</h5>
-                                      <p class="card-text"><strong>Description:</strong> ${data.project_description}</p>
-                                      <p class="card-text"><strong>Company:</strong> ${data.company}</p>
-                                      <p class="card-text"><strong>Start Date:</strong> ${data.start_date}</p>
-                                      <p class="card-text"><strong>End Date:</strong> ${data.end_date}</p>
+                                        <p class="card-title"><strong>Company Name:</strong> ${data.company}</p> 
+                                      <h5 class="card-title"><strong>Project Name:</strong>${data.project_name}</h5>
+                                      <p class="card-title"><strong>Description:</strong> ${data.project_description}</p>  
                                   </div>
                               </div>
                           `);
                       }
                   },
                   error: function () {
-                      // Handle any errors from the AJAX request
+                      // errors picked 
                       $('#project_details').html('<p>Error fetching project details. Please try again.</p>');
                   }
               });
           } else {
-              // Clear project details if no project is selected
+             
               $('#project_details').html('');
           }
       });
   });
 </script>
-
-                
-                 
-             
+  
                   <div class="mb-3">
-                    <label for="category" class="form-label fs-4">project</label>
-                    <select class="form-select  bg-secondary-subtle" id="category">
-                        <option value="general">made</option>
-                        <option value="support">Super</option>
-                        <option value="feedback">Other</option>
+                    <label for="category" class="form-label fs-4">Priority</label>
+                    <select class="form-select  bg-secondary-subtle" name="priority">
+                        <option value="Critical">Critical</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
                     </select>
                 </div>
 
                     <div class="mb-3">
-                        <label for="subject" class="form-label fs-4">Project_description</label>
+                        <label for="subject" class="form-label fs-4">Addtional Note</label>
                         <input type="text" class="form-control  bg-secondary-subtle" name="project_description" placeholder="Subject of the message">
                     </div>
 
                     <div class="mb-3">
-                      <label for="subject" class="form-label fs-4">priority</label>
-                      <input type="text" class="form-control  bg-secondary-subtle" id="subject" placeholder="Subject of the message">
+                      <label for="subject" class="form-label fs-4">Assign To Intern</label>
+                      <select class="form-select  bg-secondary-subtle" name="priority">
+                        <option value="Critical"></option>
+                    </select>
                   </div>
+
+                  <div class="mb-3">
+                    <label for="subject" class="form-label fs-4">Supervisor In Charge</label>
+                    <select class="form-select  bg-secondary-subtle" name="priority">
+                      <option value="Critical"></option>
+                  </select>
+                </div>
 
 
                     <div class="mb-3">
@@ -139,24 +151,6 @@
                                 </div>
                             </div>  
                     </div>
-
-                    <div class="mb-3">
-                        <label for="category" class="form-label fs-4">Intern Name</label>
-                        <select class="form-select  bg-secondary-subtle" id="category">
-                            <option value="general">Intern</option>
-                            <option value="support">Supervisor</option>
-                            <option value="feedback">Others</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="category" class="form-label fs-4">Supervisor Name</label>
-                      <select class="form-select  bg-secondary-subtle" id="category">
-                          <option value="general">Intern</option>
-                          <option value="support">Supervisor</option>
-                          <option value="feedback">Others</option>
-                      </select>
-                  </div>
     
                     <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
                 </form>
