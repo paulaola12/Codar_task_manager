@@ -50,7 +50,8 @@
                     <th scope="col">Priority</th>
                     <th scope="col">Intern</th>
                     <th scope="col">Supervisor</th>
-                    <th scope="col">Created on</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Update</th>
                 </tr>
@@ -65,13 +66,24 @@
                         <td>{{ $tasks->priority }}</td>
                         <td>{{ $tasks->intern }}</td>
                         <td>{{ $tasks->supervisor }}</td>
-                        <td>{{ $tasks->created_at }}</td>
-                        <td>@fat</td>
+                        <td>{{ $tasks->start_date }}</td>
+                        <td>{{ $tasks->end_date }}</td>
                         <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
+                          <a href="/tasks/{{$tasks->id}}" class="btn btn-primary px-3" role="button">
+                          
+                              Edit
+                          </a>
                         </td>
+                        <td >
+                                
+                          <form action="/projects/{{ $tasks->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-primary px-3" type="submit">Delete</button>
+                          </form> 
+                          
+                        </td>
+
                     </tr>
                     @endforeach
                 </tbody>

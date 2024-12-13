@@ -68,66 +68,42 @@
       {{-- content start --}}
         <div style="margin-top: 100px"  class="container mt-5">
           
-          <h1 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">New Project</h1>
+          <h2 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">Update Supervisor Details</h2>
 
-
-              <div class="row justify-content-center">
-                <div class="col-10">
-                  <form action="{{ route('create_project') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="name" class="form-label fs-4">Project Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="project_name" placeholder="Enter your name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="message" class="form-label fs-4">Project Description</label>
-                      <textarea class="form-control  bg-secondary-subtle" name="project_description" rows="4" placeholder="Write your message"></textarea>
-                  </div>
-                    <div class="mb-3">
-                        <label for="subject" class="form-label fs-4">Priority</label>
-                        <select class="form-select  bg-secondary-subtle" name="priority">
-                            <option value="Critical">Critical</option>
-                            <option value="High">High</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Low">Low</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="subject" class="form-label fs-4">Company</label>
-                      <select class="form-select  bg-secondary-subtle" name="company">
-                        @foreach ( $company as $company )
-                            <option value="{{ $company->company_name }}">{{ $company->company_name}}</option>
-                        @endforeach
-                          
-                      </select>
-                  </div>
-
-
-                    <div class="mb-3">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="startDate" class="form-label fs-4">Start Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" name="start_date">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="endDate" class="form-label fs-4">End Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" name="end_date">
-                                </div>
-                            </div>  
-                    </div>
-                    
-                    <div class="mb-3">
-                      <label for="message" class="form-label fs-4">Additional Note</label>
-                      <textarea class="form-control  bg-secondary-subtle" name="message" rows="4" placeholder="Write your message"></textarea>
-                  </div>
-
-
-    
-                    <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
-                </form>
+          <div class="row justify-content-center">
+            <div class="col-10">
+              <form action="/supervisor/{{ $supervisor->id }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="mb-3">
+                    <label for="name" class="form-label fs-4">Supervisor Name</label>
+                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="supervisor_name" placeholder="{{ $supervisor->supervisor_name }}">
                 </div>
+                <div class="mb-3">
+                  <label for="name" class="form-label fs-4">Home Address</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="home_address" placeholder="{{ $supervisor->home_address }}">
+                </div>
+                <div class="mb-3">
+                  <label for="name" class="form-label fs-4">Phone number</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="phone_number" placeholder="{{ $supervisor->phone_number }}">
               </div>
+              
+              <div class="mb-3">
+                <label for="category" class="form-label fs-4">Studio</label>
+                <select class="form-select  bg-secondary-subtle" name="studio">
+                    <option value="{{ $supervisor->studio }}">{{ $supervisor->studio }}</option>
+                    <option value="Gbagada">Gbagada</option>
+                    <option value="Yaba">Yaba</option>
+                    <option value="Lekki">Lekki</option>
+                    <option value="Ikeja">Ikeja</option>
+                </select>
+            </div>
+           
+                <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
+
+            </form>
+            </div>
+          </div> 
             
 
         </div>

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('project_name');
             $table->string('project_description');
-            $table->foreignId('priority_id')->constrained('prioritys')->OnDelete('cascade')->OnUpdate('cascade');
+            $table->string('priority');
             $table->string('company');
-            $table->string('start_date');
-            $table->string('end_date');
-            $table->string('message');
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
+            $table->string('message')->nullable();
             $table->timestamps();
         });
 

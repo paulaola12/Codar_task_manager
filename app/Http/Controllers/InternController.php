@@ -47,9 +47,11 @@ class InternController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(interns $id)
     {
-        //
+        return view('taskmanager.intern.intern_edit', [
+            'intern' => $id
+        ]);
     }
 
     /**
@@ -63,9 +65,17 @@ class InternController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, interns $id)
     {
-        //
+        $formField = $request -> validate([
+            'intern_name' => 'required',
+            'batch' => 'required',
+            'studio' => 'required'
+        ]);
+
+        $id->update($formField);
+
+        return redirect('/intern_manager/intern');
     }
 
     /**

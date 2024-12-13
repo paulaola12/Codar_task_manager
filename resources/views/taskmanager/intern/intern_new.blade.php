@@ -72,7 +72,9 @@
 
               <div class="row justify-content-center">
                 <div class="col-10">
+
                   <form action="{{ route('create_intern') }}" method="POST">
+
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label fs-4">Intern Name</label>

@@ -65,15 +65,22 @@
                         <td>{{ $supervisor->studio }}</td>
                         <td>{{ $supervisor->created_at }}</td>
                         <td>
-                          <a href="#" class="btn btn-primary px-3" role="button">
-                              View
+                          <a href="/supervisor/{{ $supervisor->id }}" class="btn btn-primary px-3" role="button">
+                              Edit
                           </a>
                       </td>
-                        <td>
-                            <a href="#" class="btn btn-primary px-3" role="button">
-                                Edit
-                            </a>
-                        </td>
+                      <td >
+                              
+                        <form action="/supervisor/{{ $supervisor->id }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button class="btn btn-primary px-3" type="submit">Delete</button>
+                        </form> 
+                        
+                      </td> 
+
+
+
                     </tr>
                       @endforeach
                    

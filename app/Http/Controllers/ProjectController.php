@@ -16,18 +16,8 @@ class ProjectController extends Controller
     public function index()
     {
         
-        $projects = DB::table('projects')
-        ->join('prioritys', 'projects.priority_id', '=', 'prioritys.id') 
-        ->select(
-            'projects.id',
-            'projects.project_name',
-            'projects.project_description',
-            'projects.start_date',
-            'projects.end_date',
-            'projects.company',
-            'prioritys.priority',
-        )
-        ->get();
+        $projects = projects::latest()->get();
+        ;
     
         return view('taskmanager.projects.project_listing', [
             'projects' => $projects,
@@ -90,7 +80,7 @@ class ProjectController extends Controller
         $formField = $request -> validate([
            'project_name' => 'required',
             'project_description' => 'required',
-             'priority_id' => 'required',
+             'priority' => 'required',
             'company' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
@@ -126,24 +116,44 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(projects $id)
     {
-        //
+        return view('taskmanager.projects.projects_edit', [
+            'projects' => $id
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, projects $id)
     {
-        //
+        // dd($request->all());
+        $formField = $request -> validate([
+            'project_name' => 'required',
+             'project_description' => 'required',
+              'priority' => 'required',
+             'start_date' => 'nullable',
+             'end_date' => 'nullable',
+             'message' => 'nullable',
+
+             
+         ]);
+
+        //  dd($formField);
+
+         $id->update($formField);
+
+         return redirect('project_manager/project_listing');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(projects $id)
     {
-        //
+        $id->delete();
+
+        return redirect('project_manager/project_listing');
     }
 }

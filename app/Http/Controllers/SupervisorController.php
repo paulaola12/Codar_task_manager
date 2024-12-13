@@ -51,9 +51,11 @@ class SupervisorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(supervisors $id)
     {
-        //
+        return view('taskmanager.supervisor.supervisor_edit', [
+            'supervisor' => $id
+        ]);
     }
 
     /**
@@ -67,9 +69,20 @@ class SupervisorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, supervisors $id)
     {
-        //
+        $formField = $request -> validate([
+            'supervisor_name' => 'required',
+            'home_address' => 'required',
+            'phone_number' => 'required',
+            'studio' => 'required',
+        ]);
+
+        // dd($formField);
+
+        $id->update($formField);
+
+        return redirect('/supervisor_manager/supervisor');
     }
 
     /**

@@ -53,6 +53,7 @@
                         {{-- <th scope="col">Start Date</th>
                         <th scope="col">End Date</th> --}}
                         <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
 
@@ -67,7 +68,21 @@
                     
                     {{-- <td>{{ $projects->start_date }}</td>
                     <td>{{ $projects->end_date }}</td> --}}
-                    <td>Update</td>
+                    <td>
+                      <a href="/projects/{{$projects->id}}" class="btn btn-primary px-3" role="button">
+                      
+                          Edit
+                      </a>
+                    </td>
+                    <td >
+                            
+                      <form action="/projects/{{ $projects->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-primary px-3" type="submit">Delete</button>
+                      </form> 
+                      
+                    </td>
                 </tr>
                   @endforeach
                     

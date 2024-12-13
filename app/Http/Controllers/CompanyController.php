@@ -15,10 +15,12 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $company = DB::table('companys')
-        ->join('studios', 'companys.studios_id', '=', 'studios.id')
-        ->select('companys.id', 'companys.company_name', 'companys.company_description', 'companys.created_at','studios.studio')
-        ->get();
+        // $company = DB::table('companys')
+        // ->join('studios', 'companys.studios_id', '=', 'studios.id')
+        // ->select('companys.id', 'companys.company_name', 'companys.company_description', 'companys.created_at','studios.studio')
+        // ->get();
+
+        $company = companys::latest()->get();
 
         return view('taskmanager.company.company_listing', [
             'company' => $company
@@ -43,7 +45,7 @@ class CompanyController extends Controller
         $formField = $request->validate([
             'company_name' => 'required',
             'company_description' => 'required',
-            'studios_id' => 'required',
+            'studio' => 'required',
         ]);
         // dd($formField);
 
@@ -55,9 +57,12 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(companys $id)
     {
-        //
+       return view('taskmanager.company.company_edit', [
+            'company' => $id
+
+       ]);
     }
 
     /**
@@ -65,22 +70,32 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, companys $id)
     {
-        //
+       $formField = $request ->validate([
+        'company_name' => 'required',
+        'company_description' => 'required',
+        'studio' => 'required',
+       ]) ;
+
+       $id->update($formField);
+
+       return redirect('/company_manager/company_listing');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(companys $id)
     {
-        //
+        $id->delete();
+
+        return redirect('/company_manager/company_listing');
     }
 }

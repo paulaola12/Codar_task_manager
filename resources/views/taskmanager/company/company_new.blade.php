@@ -86,11 +86,11 @@
                     
                     <div class="mb-3">
                         <label for="category" class="form-label fs-4">Studio</label>
-                        <select class="form-select  bg-secondary-subtle" name="studios_id">
-                            <option value="1">Ikeja</option>
-                            <option value="2">Yaba</option>
-                            <option value="3">Gbagada</option>
-                            <option value="4">Lekki</option>
+                        <select class="form-select  bg-secondary-subtle" name="studio">
+                            <option value="Ikeja">Ikeja</option>
+                            <option value="Yaba">Yaba</option>
+                            <option value="Gbagada">Gbagada</option>
+                            <option value="Lekki">Lekki</option>
                         </select>
                     </div>
 

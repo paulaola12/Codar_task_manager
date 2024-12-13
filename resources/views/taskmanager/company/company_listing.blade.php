@@ -52,6 +52,7 @@
                         <th scope="col">Date Created</th>
                         {{-- <th scope="col">Status</th> --}}
                         <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,9 +64,19 @@
                     <td>{{ $company->studio}}</td>
                     <td>{{ $company->created_at }}</td>
                     <td>
-                      <a href="#" class="btn btn-primary px-3" role="button">
+                      <a href="/company_manager/{{ $company->id }}" class="btn btn-primary px-3" role="button">
+                      
                           Edit
                       </a>
+                    </td>
+                    <td >
+                            
+                      <form action="/company_manager/{{ $company->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-primary px-3" type="submit">Delete</button>
+                      </form> 
+                      
                     </td>
                   </tr>
                   @endforeach

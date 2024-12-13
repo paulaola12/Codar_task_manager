@@ -49,8 +49,8 @@
                         <th scope="col">Name</th>
                         <th scope="col">Batch</th>
                         <th scope="col">Studio</th>
-                        <th scope="col">View</th>
-                        <th scope="col">Update</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,15 +62,19 @@
                       <td>{{ $intern->batch }}</td>
                       <td>{{ $intern->studio }}</td>
                       <td>
-                        <a href="#" class="btn btn-primary px-3" role="button">
-                            Batch
+                        <a href="/intern/{{ $intern->id }}" class="btn btn-primary px-3" role="button">
+                            Edit
                         </a>
                     </td>
-                      <td>
-                          <a href="#" class="btn btn-primary px-3" role="button">
-                              Edit
-                          </a>
-                      </td>
+                    <td >
+                            
+                      <form action="/intern/{{ $intern->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-primary px-3" type="submit">Delete</button>
+                      </form> 
+                      
+                    </td> 
                   </tr>
                     @endforeach
                     

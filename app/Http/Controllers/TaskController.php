@@ -39,6 +39,8 @@ class TaskController extends Controller
             'supervisor' => $supervisor,
       
         ]);
+
+        
     }
 
    
@@ -56,10 +58,16 @@ class TaskController extends Controller
             'priority' => 'required',
             'intern' => 'required',
             'supervisor' => 'required',
-
+            'start_date' => 'required',
+            'end_date' => 'required',
+            
        ]);
 
+    //    dd($formField);
+
        tasks::create($formField);
+
+       return redirect('/task_manager/task_listing');
 
     //    dd($formField);
     }
@@ -106,17 +114,39 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(tasks $id)
     {
-        //
+        return view('taskmanager.task.task_edit', [
+            'tasks' => $id
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, tasks $id)
     {
-        //
+        // dd($request->all());
+
+        $formField = $request -> validate([
+            
+
+            'task_name' => 'required',
+            'priority' => 'required',
+            'intern' => 'nullable',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            
+       ]);
+
+    //    dd($formField);
+
+       $id->update($formField);
+
+
+    //    tasks::create($formField);
+
+       return redirect('/task_manager/task_listing');
     }
 
     /**

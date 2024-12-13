@@ -19,7 +19,7 @@ class companys extends Model
     protected $fillable = [
        'company_name',
        'company_description',
-       'studios_id',
+       'studio',
     ];
 
     public function studios()
