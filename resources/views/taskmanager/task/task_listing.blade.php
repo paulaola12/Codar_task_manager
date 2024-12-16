@@ -52,8 +52,9 @@
                     <th scope="col">Supervisor</th>
                     <th scope="col">Start Date</th>
                     <th scope="col">End Date</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Edit</th>
-                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
                 </tr>
                          
                 </thead>
@@ -68,6 +69,7 @@
                         <td>{{ $tasks->supervisor }}</td>
                         <td>{{ $tasks->start_date }}</td>
                         <td>{{ $tasks->end_date }}</td>
+                        <td>{{ $tasks->status }}</td>
                         <td>
                           <a href="/tasks/{{$tasks->id}}" class="btn btn-primary px-3" role="button">
                           
@@ -76,7 +78,7 @@
                         </td>
                         <td >
                                 
-                          <form action="/projects/{{ $tasks->id }}" method="POST">
+                          <form action="/tasks/{{ $tasks->id }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-primary px-3" type="submit">Delete</button>

@@ -76,15 +76,23 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label fs-4">Supervisor Name</label>
-                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="supervisor_name" placeholder="Enter your name">
+                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="supervisor_name" placeholder="Enter supervisor name">
                 </div>
+
                 <div class="mb-3">
-                  <label for="name" class="form-label fs-4">Home Address</label>
-                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="home_address" placeholder="Enter your name">
+                  <label for="name" class="form-label fs-4">Email</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="email" placeholder="Enter your Email">
                 </div>
+
+                
                 <div class="mb-3">
                   <label for="name" class="form-label fs-4">Phone number</label>
-                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="phone_number" placeholder="Enter your name">
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="phone_number" placeholder="Enter your phone number">
+              </div>
+
+              <div class="mb-3">
+                <label for="name" class="form-label fs-4">Home Address</label>
+                <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="home_address" placeholder="Enter your Address">
               </div>
               
               <div class="mb-3">
@@ -95,6 +103,11 @@
                     <option value="Lekki">Lekki</option>
                     <option value="Ikeja">Ikeja</option>
                 </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="name" class="form-label fs-4">Password</label>
+                <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="password" placeholder="Enter password">
             </div>
            
 

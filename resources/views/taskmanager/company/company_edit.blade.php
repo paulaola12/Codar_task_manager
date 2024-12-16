@@ -78,18 +78,18 @@
 
                     <div class="mb-3">
                         <label for="name" class="form-label fs-4">Company Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="company_name" placeholder="{{ $company->company_name }}">
+                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="company_name" value="{{ $company->company_name }}" placeholder="{{ $company->company_name }}">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label fs-4">Company Description</label>
-                        <textarea class="form-control bg-secondary-subtle" name="company_description" rows="5" placeholder="{{ $company->company_description }}"></textarea>
+                        <textarea class="form-control bg-secondary-subtle" name="company_description" rows="5" value="{{ $company->company_description }}" placeholder="{{ $company->company_description }}"></textarea>
                         
                     </div>
                     
                     <div class="mb-3">
                         <label for="category" class="form-label fs-4">Studio</label>
                         <select class="form-select  bg-secondary-subtle" name="studio">
-                            <option >{{ $company->studio }}</option>
+                            <option value="{{ $company->studio }}">{{ $company->studio }}</option>
                             <option value="Ikeja">Ikeja</option>
                             <option value="Yaba">Yaba</option>
                             <option value="Gbagada">Gbagada</option>

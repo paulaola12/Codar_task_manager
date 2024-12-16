@@ -23,7 +23,9 @@ class tasks extends Model
             'priority',
             'intern',
             'supervisor',
+            'email',
             'start_date',
             'end_date',
+            'status',
       ];
 }

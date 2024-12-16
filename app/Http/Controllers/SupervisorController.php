@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tasks;
 use App\Models\supervisors;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SupervisorController extends Controller
 {
@@ -36,16 +38,20 @@ class SupervisorController extends Controller
             // dd($request->all());
         $formField = $request -> validate([
             'supervisor_name' => 'required',
-            'home_address' => 'required',
+            'email' => 'required',
             'phone_number' => 'required',
+            'home_address' => 'required',
             'studio' => 'required',
+            'password'=> 'required',
         ]);
 
         // dd($formField);
 
+        $formField['password'] = bcrypt( $formField['password']);
+
         supervisors::create($formField);
 
-        return redirect('/supervisor_manager/supervisor');
+        return redirect('/');
     }
 
     /**
@@ -61,11 +67,6 @@ class SupervisorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -73,16 +74,73 @@ class SupervisorController extends Controller
     {
         $formField = $request -> validate([
             'supervisor_name' => 'required',
-            'home_address' => 'required',
+            'email' => 'required',
             'phone_number' => 'required',
+            'home_address' => 'required',
             'studio' => 'required',
+            'password'=> 'required',
         ]);
 
         // dd($formField);
 
         $id->update($formField);
 
-        return redirect('/supervisor_manager/supervisor');
+        return redirect('/supervisor/supervisor');
+    }
+
+
+    public function show_login()
+    {
+        return view('loginpage.supervisor_login');
+    }
+
+       /**
+     * Display Registeration page for Supervisor.
+     */
+    public function show_register()
+    {
+        return view('registeration.register_supervisor');
+    }
+
+     /**
+     * Show the form for creating a new Admin.
+     */
+    public function login(Request $request)
+    
+    {
+        //   dd($request->all());
+           $request -> validate([
+                'email' => 'required',
+                'password'=> 'required', 
+        ]);
+
+        // dd($formField);
+
+        if (Auth::guard('supervisor')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            return redirect()->intended('/supervisor/dashboard');
+        }
+
+        return redirect('');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('supervisor')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('supervisor.login');
+    }
+
+    public function show_dashboard()
+    {
+        $supervisor = Auth::guard('supervisor')->user();
+
+        $tasks = tasks::where('supervisor', $supervisor->supervisor_name)->get();
+        return view('dashboard.supervisor_dashbaord', [
+            'tasks' => $tasks,
+            'user' => $supervisor
+        ]);
     }
 
     /**
@@ -92,4 +150,21 @@ class SupervisorController extends Controller
     {
         //
     }
+
+      /**
+     * Show the Supervisor Log In page
+     */
+    // public function login()
+    // {
+  
+    //     return view('loginpage.supervisor_login');
+    // }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    // public function login(Request $request)
+    // {
+    //     //
+    // }
 }

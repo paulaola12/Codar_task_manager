@@ -34,7 +34,7 @@
 
           <div class="accordion" id="sidebarAccordion">
             <!-- First Dropdown -->
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
               <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false" data-bs-toggle="collapse" data-bs-target="#dropdownButtons" aria-controls="dropdownButtons">
                 <span>
                   <i class="ti ti-article"></i>
@@ -50,7 +50,7 @@
                 </li>
               </ul>
             </li>
-          
+           --}}
             <!-- Second Dropdown -->
             <li class="sidebar-item">
               <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false" data-bs-toggle="collapse" data-bs-target="#dropdownForms" aria-controls="dropdownForms">
@@ -141,7 +141,7 @@
                 </a>
                 <ul class="collapse list-unstyled bg-primary-subtle" id="dropdownsupervisor" data-bs-parent="#sidebarAccordion">
                   <li>
-                    <a class="sidebar-link" href="{{ route('Supervisor_listing') }}">Supervisor</a>
+                    <a class="sidebar-link" href="{{ route('supervisor_listing') }}">Supervisor</a>
                   </li>
                   <li>
                     <a class="sidebar-link" href="{{ route('new_supervisor') }}">Create New Supervisor

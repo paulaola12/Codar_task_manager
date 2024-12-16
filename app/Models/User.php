@@ -20,7 +20,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone_number',
+        'address',
         'password',
+        'role',
     ];
 
     /**
@@ -32,6 +35,26 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // Definging role constant for each of the subject
+
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_STUDENT = 'student';
+    public const ROLE_SUPERVISOR = 'supervisor';
+
+
+    public function isAdmin(){
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isStudent(){
+        return $this->role === self::ROLE_STUDENT;
+    }
+
+    PUBLIC function isSupervisor(){
+        return $this->role === self::ROLE_SUPERVISOR;
+    }
+
 
     /**
      * Get the attributes that should be cast.

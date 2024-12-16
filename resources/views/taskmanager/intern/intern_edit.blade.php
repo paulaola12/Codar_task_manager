@@ -77,34 +77,49 @@
 
                     @csrf
                     @method('PUT')
+                    
                     <div class="mb-3">
-                        <label for="name" class="form-label fs-4">Intern Name</label>
-                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="intern_name" placeholder="{{ $intern->intern_name }}">
-                    </div>
-                    <div class="mb-3">
-                      <label for="category" class="form-label fs-4">Batch</label>
-                      <select class="form-select  bg-secondary-subtle" name="batch">
-                        <option value="2014 Set">{{ $intern->batch }}</option>
-                          <option value="2014 Set">2014 Set</option>
-                          <option value="2015 Set">2015 Set</option>
-                          <option value="2016 Set">2016 Set</option>
-                          <option value="2017 Set">2017 Set</option>
-                          <option value="2018 Set">2018 Set</option>
-                          <option value="2020 Set">2019 Set</option>
-                      </select>
+                      <label for="name" class="form-label fs-4">Intern Name</label>
+                      <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="intern_name" value="{{ $intern->intern_name }}" placeholder="{{ $intern->intern_name }}">
                   </div>
+
                   <div class="mb-3">
-                    <label for="category" class="form-label fs-4">Studio</label>
-                    <select class="form-select  bg-secondary-subtle" name="studio">
-                        <option value="{{ $intern->studio }}">{{ $intern->studio }}</option>
-                        <option value="Gbagada">Gbagada</option>
-                        <option value="Yaba">Yaba</option>
-                        <option value="Lekki">Lekki</option>
-                        <option value="Ikeja">Ikeja</option>
-                    </select>
+                    <label for="name" class="form-label fs-4">Email</label>
+                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="email" value="{{ $intern->email }}" placeholder="{{ $intern->email }}">
                 </div>
-               
-    
+
+                <div class="mb-3">
+                  <label for="name" class="form-label fs-4">Phone_number</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="phone_number" value="{{ $intern->phone_number }}" placeholder="{{ $intern->phone_number }}">
+              </div>
+
+              <div class="mb-3">
+                <label for="name" class="form-label fs-4">Home Address</label>
+                <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="home_address" value="{{ $intern->home_address }}" placeholder="{{ $intern->home_address }}">
+            </div>
+
+            <div class="mb-3">
+              <label for="name" class="form-label fs-4">Class</label>
+              <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="class" value="{{ $intern->class }}" placeholder="{{ $intern->class}}">
+          </div>
+
+
+                <div class="mb-3">
+                  <label for="category" class="form-label fs-4">Studio</label>
+                  <select class="form-select  bg-secondary-subtle" name="studio">
+                      <option value="{{ $intern->studio}}">{{ $intern->studio}}</option>
+                      <option value="Gbagada">Gbagada</option>
+                      <option value="Yaba">Yaba</option>
+                      <option value="Lekki">Lekki</option>
+                      <option value="Ikeja">Ikeja</option>
+                  </select>
+              </div>
+
+              <div class="mb-3">
+                {{-- <label for="name" class="form-label fs-4">Password</label> --}}
+                <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="password" value="{{ $intern->password }}" placeholder="Enter New Password" hidden>
+            </div>
+             
                     <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
 
                 </form>

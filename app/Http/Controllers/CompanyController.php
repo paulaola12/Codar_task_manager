@@ -78,6 +78,7 @@ class CompanyController extends Controller
      */
     public function update(Request $request, companys $id)
     {
+            // dd($request ->all());
        $formField = $request ->validate([
         'company_name' => 'required',
         'company_description' => 'required',

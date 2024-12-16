@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = tasks::latest()->get();
+        $tasks = tasks::oldest()->get();
 
         return view('taskmanager.task.task_listing', [
             // 'producta' => $producta,
@@ -31,12 +31,13 @@ class TaskController extends Controller
         $projects = projects::latest()->get();
         $intern = interns::latest()->get();
         $supervisor = supervisors::latest()->get();
-
+      
         // dd($projects);
         return view('taskmanager.task.task_new', [
             'projects' => $projects,
             'intern' => $intern,
             'supervisor' => $supervisor,
+           
       
         ]);
 
@@ -60,7 +61,7 @@ class TaskController extends Controller
             'supervisor' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            
+            'status' => 'nullable',
        ]);
 
     //    dd($formField);
@@ -107,17 +108,19 @@ class TaskController extends Controller
     }
     
         
-        
-
-    
-
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(tasks $id)
     {
+        $interns = interns::all();
+        $supervisor = supervisors::all();
+        $project = projects::all();
         return view('taskmanager.task.task_edit', [
-            'tasks' => $id
+            'tasks' => $id,
+            'interns' => $interns,
+            'supervisor' => $supervisor,
+            'project' => $project
         ]);
     }
 
@@ -129,21 +132,20 @@ class TaskController extends Controller
         // dd($request->all());
 
         $formField = $request -> validate([
-            
 
-            'task_name' => 'required',
-            'priority' => 'required',
-            'intern' => 'nullable',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            
+            "task_name" => "required",
+            "project_name" => "required",
+            "priority" => "required",
+            "intern" => "required",
+            "supervisor" => "required",
+            "start_date" => "required",
+            "end_date" => "required",
+            "status" => "nullable",        
        ]);
 
     //    dd($formField);
 
        $id->update($formField);
-
-
     //    tasks::create($formField);
 
        return redirect('/task_manager/task_listing');
@@ -156,4 +158,24 @@ class TaskController extends Controller
     {
         //
     }
+
+    // logged in as an intern . steps to update status 
+
+
+    public function updateStatus(Request $request)
+    {
+       
+        $request->validate([
+            'id' => 'required',
+            'status' => 'required',
+        ]);
+
+        $task = tasks::find($request->id);
+        $task->status = $request->status;
+        $task->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Task status updated successfully.']);
+    }
+
+
 }

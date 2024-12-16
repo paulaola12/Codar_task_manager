@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tasks;
 use App\Models\interns;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InternController extends Controller
 {
@@ -12,10 +14,12 @@ class InternController extends Controller
      */
     public function index()
     {
-        $intern = interns::latest()->get();
+        $intern = interns::oldest()->get();
+        
 
         return view('taskmanager.intern.intern_listing', [
-            'intern' => $intern
+            'intern' => $intern,
+           
         ]);
     }
 
@@ -34,14 +38,24 @@ class InternController extends Controller
     {
         // dd($request->all());
        $formField = $request -> validate([
+
             'intern_name' => 'required',
-            'batch' => 'required',
-            'studio' => 'required'
+            'email'  => 'required',
+            'phone_number'  => 'required',
+           'home_address'  => 'required',
+           'class' => 'required',
+           'studio'  => 'required',
+           'password'  => 'required',
+
         ]);
+
+        // dd($formField);
+
+        $formField['password'] = bcrypt( $formField['password']);
 
         interns::create($formField);
 
-        return redirect('/intern_manager/intern');
+        return redirect('/intern/intern');
     }
 
     /**
@@ -68,14 +82,18 @@ class InternController extends Controller
     public function update(Request $request, interns $id)
     {
         $formField = $request -> validate([
-            'intern_name' => 'required',
-            'batch' => 'required',
-            'studio' => 'required'
+            'intern_name' => 'nullable',
+            'email'  => 'nullable',
+            'phone_number'  => 'nullable',
+           'home_address'  => 'nullable',
+           'class' => 'nullable',
+           'studio'  => 'nullable',
+           'password'  => 'nullable',
         ]);
 
         $id->update($formField);
 
-        return redirect('/intern_manager/intern');
+        return redirect('/intern/intern');
     }
 
     /**
@@ -85,4 +103,56 @@ class InternController extends Controller
     {
         //
     }
+
+     /**
+     * Display Log-in page for interns.
+     */
+    public function show_login()
+    {
+        return view('loginpage.intern_login');
+    }
+
+    public function login(Request $request)
+    {
+        //   dd($request->all());
+
+           $request -> validate([
+            'email' => 'required',
+            'password'=> 'required',
+        ]);
+
+        // dd($formField);
+
+
+        if (Auth::guard('intern')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            return redirect()->intended('intern/dashboard');
+        }
+
+        return redirect('/');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('intern')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/intern/show_login');
+    }
+
+      /**
+     * Show the form for creating a new resource.
+     */
+    public function show_dashboard()
+    {
+       $intern = Auth::guard('intern')->user();
+
+        $tasks = tasks::where('intern', $intern->intern_name)->get();
+
+        return view('dashboard.intern_dashbaord', [
+            'tasks' => $tasks,
+            'user' => $intern
+        ]);
+    }
+    
+
 }

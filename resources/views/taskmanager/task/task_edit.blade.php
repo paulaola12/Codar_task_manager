@@ -40,18 +40,58 @@
 
                     <div class="mb-3">
                         <label for="name" class="form-label fs-4">Project Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle"  placeholder="{{ $tasks->project_name }}" readonly>
+                        <select class="form-select  bg-secondary-subtle" name="project_name">
+                          <option value="{{ $tasks->project_name }}">{{ $tasks->project_name }}</option>
+                          @foreach ($project as $project)
+                          <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+                          @endforeach
+                          
+                      </select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="name" class="form-label fs-4">Intern Name (Uneditable)</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle"  placeholder="{{ $tasks->intern }}" readonly>
-                    </div>
+                      <label for="category" class="form-label fs-4">Priority</label>
+                      <select class="form-select  bg-secondary-subtle" name="priority">
+                          <option value="{{ $tasks->priority }}">{{ $tasks->priority }}</option>
+                          <option value="Critical">Critical</option>
+                          <option value="High">High</option>
+                          <option value="Medium">Medium</option>
+                          <option value="Low">Low</option>
+                      </select>
+                  </div>
 
-                    <div class="mb-3">
+                  <div class="mb-3">
+                    <label for="subject" class="form-label fs-4">Assign To Intern</label>
+                    <select class="form-select  bg-secondary-subtle" name="intern">
+                      <option value="{{ $tasks->intern }}">{{ $tasks->intern }}</option>
+                      @foreach ($interns as $intern)
+                      <option value="{{ $intern->intern_name }}">{{ $intern->intern_name }}</option>
+                      @endforeach
+                      
+                  </select>
+                </div>
+
+                 <div class="mb-3">
+                  <label for="subject" class="form-label fs-4">Supervisor In Charge</label>
+                  <select class="form-select  bg-secondary-subtle" name="supervisor">
+                    <option value="Nil">Select Supervisor</option>
+                    @foreach ($supervisor as $supervisor)
+                         <option value="{{ $supervisor->supervisor_name }}">{{ $supervisor->supervisor_name}}</option>
+                    @endforeach
+                    
+                </select>
+              </div> 
+
+
+                    {{-- <div class="mb-3">
+                        <label for="name" class="form-label fs-4">Intern Name </label>
+                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle"  name="intern" placeholder="{{ $tasks->intern }}" >
+                    </div> --}}
+
+                    {{-- <div class="mb-3">
                         <label for="name" class="form-label fs-4">Supervisor Name (Uneditable)</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle"  placeholder="{{ $tasks->supervisor }}" readonly>
-                    </div>
+                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle"  name="supervisor" placeholder="{{ $tasks->supervisor }}" >
+                    </div> --}}
                     {{-- <div class="mb-3">
                       <label for="category" class="form-label fs-4">project</label>
 
@@ -125,40 +165,10 @@
   });
 </script> --}}
                   {{-- php continues --}}
-                  <div class="mb-3">
-                    <label for="category" class="form-label fs-4">Priority</label>
-                    <select class="form-select  bg-secondary-subtle" name="priority">
-                        <option value="{{ $tasks->priority }}">{{ $tasks->priority }}</option>
-                        <option value="Critical">Critical</option>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                    </select>
-                </div>
+                  
 
 
-                    {{-- <div class="mb-3">
-                      <label for="subject" class="form-label fs-4">Assign To Intern</label>
-                      <select class="form-select  bg-secondary-subtle" name="intern">
-                        <option value="Critical">Select Intern</option>
-                        @foreach ($intern as $intern)
-                        <option value="{{ $intern->intern_name }}">{{ $intern->intern_name }}</option>
-                        @endforeach
-                        
-                    </select>
-                  </div> --}}
-
-                  {{-- <div class="mb-3">
-                    <label for="subject" class="form-label fs-4">Supervisor In Charge</label>
-                    <select class="form-select  bg-secondary-subtle" name="supervisor">
-                      <option value="Nil">Select Supervisor</option>
-                      @foreach ($supervisor as $supervisor)
-                           <option value="{{ $supervisor->supervisor_name }}">{{ $supervisor->supervisor_name}}</option>
-                      @endforeach
-                      
-                  </select>
-                </div> --}}
-
+                
 
                     <div class="mb-3">
                             <div class="row">
@@ -172,6 +182,19 @@
                                 </div>
                             </div>  
                     </div>
+
+                   
+
+                  <div class="mb-3">
+                    <label for="category" class="form-label fs-4">Status</label>
+                    <select class="form-select  bg-secondary-subtle" name="status" >
+                        <option value="{{ $tasks->status }}">{{ $tasks->status }}</option>
+                        <option value="Incomplete">Incomplete</option>
+                        <option value="In progress">In progress</option>
+                        <option value="Completed">Completed</option>
+                       
+                    </select>
+                </div>
     
                     <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
                 </form>

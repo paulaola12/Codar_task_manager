@@ -124,8 +124,8 @@
                       <label for="subject" class="form-label fs-4">Assign To Intern</label>
                       <select class="form-select  bg-secondary-subtle" name="intern">
                         <option value="Critical">Select Intern</option>
-                        @foreach ($intern as $intern)
-                        <option value="{{ $intern->intern_name }}">{{ $intern->intern_name }}</option>
+                        @foreach ($intern as $interns)
+                        <option value="{{ $interns->intern_name }}">{{ $interns->intern_name }}</option>
                         @endforeach
                         
                     </select>
@@ -142,7 +142,6 @@
                   </select>
                 </div>
 
-
                     <div class="mb-3">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -155,6 +154,11 @@
                                 </div>
                             </div>  
                     </div>
+
+                    <div class="mb-3">
+                      {{-- <label for="name" class="form-label fs-4">Status</label> --}}
+                      <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="status" value="Not Started" hidden>
+                  </div>
     
                     <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
                 </form>

@@ -59,7 +59,7 @@
                     <tr>
                       <th scope="row">{{ $intern->id }}</th>
                       <td>{{ $intern->intern_name }}</td>
-                      <td>{{ $intern->batch }}</td>
+                      <td>{{ $intern->class }}</td>
                       <td>{{ $intern->studio }}</td>
                       <td>
                         <a href="/intern/{{ $intern->id }}" class="btn btn-primary px-3" role="button">

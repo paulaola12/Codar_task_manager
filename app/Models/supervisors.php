@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
+// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
-class supervisors extends Model
+class supervisors extends Authenticatable
 {
       /** @use HasFactory<\Database\Factories\UserFactory> */
       use HasFactory, Notifiable;
@@ -19,8 +19,16 @@ class supervisors extends Model
        */
       protected $fillable = [
         'supervisor_name',
-        'home_address',
+        'email',
         'phone_number',
+        'home_address',
         'studio',
+        'password',
+
       ];
+
+      protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 }

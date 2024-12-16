@@ -77,16 +77,23 @@
                 @method('PUT')
                 <div class="mb-3">
                     <label for="name" class="form-label fs-4">Supervisor Name</label>
-                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="supervisor_name" placeholder="{{ $supervisor->supervisor_name }}">
+                    <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="supervisor_name" value="{{ $supervisor->supervisor_name }}" placeholder="{{ $supervisor->supervisor_name }}">
                 </div>
                 <div class="mb-3">
-                  <label for="name" class="form-label fs-4">Home Address</label>
-                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="home_address" placeholder="{{ $supervisor->home_address }}">
+                  <label for="name" class="form-label fs-4">Email</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="email" value="{{ $supervisor->email }}" placeholder="{{ $supervisor->email }}">
                 </div>
+
                 <div class="mb-3">
                   <label for="name" class="form-label fs-4">Phone number</label>
-                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="phone_number" placeholder="{{ $supervisor->phone_number }}">
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="phone_number" value="{{ $supervisor->phone_number }}" placeholder="{{ $supervisor->phone_number }}">
               </div>
+
+                <div class="mb-3">
+                  <label for="name" class="form-label fs-4">Home Address</label>
+                  <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="home_address" value="{{ $supervisor->home_address }}" placeholder="{{ $supervisor->home_address }}">
+                </div>
+                
               
               <div class="mb-3">
                 <label for="category" class="form-label fs-4">Studio</label>
@@ -98,6 +105,12 @@
                     <option value="Ikeja">Ikeja</option>
                 </select>
             </div>
+
+            <div class="mb-3">
+              {{-- <label for="name" class="form-label fs-4">Password</label> --}}
+              <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="password" value="{{ $supervisor->password }}" placeholder="Enter New password" hidden>
+          </div>
+         
            
                 <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
 

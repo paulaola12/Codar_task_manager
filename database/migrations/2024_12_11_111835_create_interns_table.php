@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('interns', function (Blueprint $table) {
             $table->id();
             $table->string('intern_name');
-            $table->string('batch');
-            $table->string('studio');
+            $table->string('email')->unique();
+            $table->string('phone_number')->nullable();
+            $table->string('home_address')->nullable();
+            $table->string('class')->nullable();
+            $table->string('studio')->nullable();
+            $table->string('password');
             $table->timestamps();
         });
     }
