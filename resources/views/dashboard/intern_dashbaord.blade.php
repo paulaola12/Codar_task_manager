@@ -3,98 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/styles3.css') }}">
+    <title>Intern Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 500;
+        }
+        .sidebar a:hover, .sidebar a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .content {
+            flex-grow: 1;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #6a11cb;
+            color: #fff;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+        }
+        .status-form {
+            width: 100%;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .status-form label {
+            font-weight: bold;
+        }
+        .status-form select {
+            height: 55px;
+            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .status-form button {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+        .status-form button:hover {
+            background: #2575fc;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="dashboard-container">
-        <header class="header">
-            <h1>Student Dashboard</h1>
-            <div class="auth-buttons">
-                {{-- <button class="login-btn">Login</button> --}}
-                
-                <form action="{{ route('intern.logout') }}" method="POST">
-                    @csrf
-                    <button class="logout-btn" type="submit">Logout</button>
-                </form>
-               
-            </div>
-        </header>
-
-        <section class="profile-section">
-            <div class="profile-picture">
-                <img src="profile-pic.jpg" alt="Profile Picture" />
-            </div>
-            <div class="profile-info">
-                <h4>
-                    @if(Auth::guard('intern')->check())
-                 <p>Welcome, {{ Auth::guard('intern')->user()->intern_name }} (Intern Dash Board)</p>
-                 <p><strong>Phone Number: {{ Auth::guard('intern')->user()->phone_number }}</strong></p>
-                 <p><strong>Studio:</strong>  {{ Auth::guard('intern')->user()->studio }}</p>
-                 <p><strong>email:</strong>  {{ Auth::guard('intern')->user()->email }}</p>
-                 <p><strong>Batch:</strong>  {{ Auth::guard('intern')->user()->class }}</p>
-                 @else
-                 <p>Log in To your dashboard</p>
-                @endif
-                </h4>
-               
-            </div>
-        </section>
-
-        <section class="task-section">
-            <h2>Assigned Tasks</h2>
-            @foreach ($tasks as $tasks )
-            <div class="task-list">
-                <div class="task-item">
-                    <p><strong>Task: </strong>{{$tasks->task_name}}</p>
-                    <p><strong>Due Date: </strong>{{ $tasks->end_date }}</p>
-                    <div class="task-status">
-                        <label for="status">Update Task Status:</label>
-                        <select class="status" data-task-id="{{ $tasks->id }}">
-                            <option value="incomplete" {{ $tasks->status == 'incomplete' }}>Incomplete</option>
-                            <option value="in-progress" {{ $tasks->status == 'in-progress' }}>In Progress</option>
-                            <option value="completed" {{ $tasks->status == 'completed' }}>Completed</option>
-                        </select>
-                       
-                    </div>
-                </div>
-            </div>
-            @endforeach
-           
-        </section>
+    <!-- Sidebar -->
+    <div class="sidebar d-flex flex-column">
+        <h4 class="text-center py-3 border-bottom">Intern Dashboard</h4>
+        <a href="#" class="active">Dashboard</a>
+        <div class="dropdown">
+            <a class="dropdown-toggle" href="#" id="usersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Users
+            </a>
+            <ul class="dropdown-menu bg-dark" aria-labelledby="usersDropdown">
+                <li><a class="dropdown-item text-white" href="#">View All Users</a></li>
+                <li><a class="dropdown-item text-white" href="#">Add User</a></li>
+                <li><a class="dropdown-item text-white" href="#">User Reports</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <a class="dropdown-toggle" href="#" id="tasksDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Tasks
+            </a>
+            <ul class="dropdown-menu bg-dark" aria-labelledby="tasksDropdown">
+                <li><a class="dropdown-item text-white" href="#">View Tasks</a></li>
+                <li><a class="dropdown-item text-white" href="#">Add Task</a></li>
+                <li><a class="dropdown-item text-white" href="#">Task Reports</a></li>
+            </ul>
+        </div>
+        <a href="#">Reports</a>
+        <a href="#">Settings</a>
+        <form action="{{ route('intern.logout') }}" method="POST" class="mt-auto border-top">
+            @csrf
+            <button type="submit" class="btn btn-danger w-100 mt-3">Logout</button>
+        </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function () {
-    
-    $('.status').on('change', function () {
-        var taskId = $(this).data('task-id');
-        var status = $(this).val();
-        //   console.log('Selected the right Id', task-id);
-        $.ajax({
-            url: '{{ route('update_task_status') }}',
-            method: 'POST',
-            data: {
-                 id: taskId,
-                status: status,
-                _token: '{{ csrf_token() }}'  
-            },
-            success: function (response) {
-                if (response.status === 'success') {
-                    alert(response.message);  
-                } else {
-                    alert('An error occurred.');
-                }
-            },
-            error: function () {
-                alert('An error occurred.');
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg mb-4">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1"><p>Welcome, {{ Auth::guard('intern')->user()->intern_name }} (Intern DashBoard)</p></span>
+            </div>
+        </nav>
+
+        <!-- Dashboard Stats Section -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <h5>Total Tasks</h5>
+                    <h2>50</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <h5>Completed Tasks</h5>
+                    <h2>35</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <h5>Pending Tasks</h5>
+                    <h2>15</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Update Section -->
+        <div class="status-form">
+            <h4 class="mb-4">Update Task Status</h4>
+            <form>
+                <div class="mb-3">
+                    {{-- <label for="taskStatus" class="form-label">Task Status</label> --}}
+                    
+                    {{-- dd($task) --}}
+                    @foreach ($task as $task)
+                    <form action="{{ route('update_task_status') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $task->id }}">
+                        <label for="status">{{ $task->task_name }}</label>
+                    <select class="form-select" id="taskStatus">
+                        {{-- <option selected disabled>Select task status</option> --}}
+                        {{ Auth::guard('intern')->user()->role === 'intern' ? 'onchange="checkInternStatus(this)"' : '' }}>
+                        <option value="Pending" {{ $task->status === 'Pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="In Progress" {{ $task->status === 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                        <option value="Completed" {{ $task->status === 'Completed' ? 'selected' : '' }}>Completed</option>
+                    </select>
+                </div> 
+                {{-- <div class="d-grid">
+                    <button type="submit" class="btn">Submit</button>
+                </div> --}}
+            </form>
+            @endforeach
+        </div>
+    </div>
+
+    <script>
+        function checkInternStatus(selectElement) {
+            if (selectElement.value === 'Completed') {
+                alert('Only a supervisor or admin can mark this task as completed.');
+                selectElement.value = 'Pending'; // Reset to previous value
             }
-        });
-    });
-});
-</script>
+        }
+    </script>
+    
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
-
+</html>

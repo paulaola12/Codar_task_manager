@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('supervisor')->nullable();
             $table->string('start_date');
             $table->string('end_date');
+            $table->string('status');
+            $table->string('is_approved')->default('false');
             $table->timestamps();
 
         });

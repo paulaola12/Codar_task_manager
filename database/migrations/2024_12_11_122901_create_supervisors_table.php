@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('home_address');
             $table->string('studio');
             $table->string('password');
+            $table->string('role');
             $table->timestamps();
         });
        

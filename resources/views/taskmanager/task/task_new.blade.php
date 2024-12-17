@@ -1,64 +1,107 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href="{{ asset('../assets/images/logos/favicon.png') }}" />
-  <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 500;
+        }
+        .sidebar a:hover, .sidebar a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .content {
+            flex-grow: 1;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #6a11cb;
+            color: #fff;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .form-container button {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+        }
+        .form-container button:hover {
+            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+        }
+    </style>
 </head>
+<body>
+    <!-- Sidebar -->
+    <x-sidebarr />
 
-<body style="background-color: rgb(173, 216, 230);">
-  <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg mb-4">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">Task Form</span>
+            </div>
+        </nav>
 
+        <!-- Form Content -->
+        <div class="form-container">
+            <h4 class="mb-4">Add New Task</h4>
+            <form action="{{ route('create_task') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="taskName" class="form-label">Task</label>
+                    <input type="text" class="form-control" id="taskName" name="task_name" placeholder="Enter New Task">
+                </div>
 
-    <!-- Sidebar Start -->
-    <x-sidebar/>
-<!--  Sidebar End -->
-
-    <!--  Main wrapper -->
-    <div class="body-wrapper">
-      <!--  Header Start -->
-     
-      <!--  Header End -->
-      {{-- content start --}}
-        <div style="margin-top: 100px"  class="container mt-5">
-          
-            <h2 class="text-center mb-4">New Task</h2>
-              <div class="row justify-content-center">
-                <div class="col-10">
-                  <form action="{{ route('create_task') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="name" class="form-label fs-4">Task Name</label>
-                        <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="task_name" placeholder="Enter your name">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="project" class="form-label">Project Name</label>
+                        <select class="form-select" id="project" name="project_name" id="project_name" >
+                            <option value="">Select a Project</option>
+                            @foreach ($projects as $project)
+                                <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-
-                    {{-- <div class="mb-3">
-                      <label for="category" class="form-label fs-4">project</label>
-                      <select class="form-select  bg-secondary-subtle" id="category">
-                          <option value="general">Intern</option>
-                          <option value="support">Supervisor</option>
-                          <option value="feedback">Others</option>
-                      </select>
-                  </div> --}}
-
-                  <!-- Project Select Dropdown -->
-<div class="mb-3">
-  <label for="project_name" class="form-label fs-4">Project</label>
-  <select class="form-select bg-secondary-subtle" name="project_name" id="project_name">
-      <option value="">Select a Project</option>
-      @foreach ($projects as $project)
-          <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
-      @endforeach
-  </select>
-</div>
-
-
-<div id="project_details"></div>
+                    
+                    <div class="col-md-6">
+                        <label for="priority" class="form-label">Priority</label>
+                        <select class="form-select" id="priority" name="priority">
+                            <option selected disabled>Select priority</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12"  id="project_details"></div>
+                </div>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -108,88 +151,53 @@
       });
   });
 </script>
-                  {{-- php continues --}}
-                  <div class="mb-3">
-                    <label for="category" class="form-label fs-4">Priority</label>
-                    <select class="form-select  bg-secondary-subtle" name="priority">
-                        <option value="Critical">Critical</option>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                    </select>
-                </div>
 
-
-                    <div class="mb-3">
-                      <label for="subject" class="form-label fs-4">Assign To Intern</label>
-                      <select class="form-select  bg-secondary-subtle" name="intern">
-                        <option value="Critical">Select Intern</option>
-                        @foreach ($intern as $interns)
-                        <option value="{{ $interns->intern_name }}">{{ $interns->intern_name }}</option>
-                        @endforeach
-                        
-                    </select>
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="subject" class="form-label fs-4">Supervisor In Charge</label>
-                    <select class="form-select  bg-secondary-subtle" name="supervisor">
-                      <option value="Nil">Select Supervisor</option>
-                      @foreach ($supervisor as $supervisor)
-                           <option value="{{ $supervisor->supervisor_name }}">{{ $supervisor->supervisor_name}}</option>
-                      @endforeach
-                      
-                  </select>
-                </div>
-
-                    <div class="mb-3">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="startDate" class="form-label fs-4">Start Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" name="start_date">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="endDate" class="form-label fs-4">End Date</label>
-                                    <input type="date" class="form-control  bg-secondary-subtle" name="end_date">
-                                </div>
-                            </div>  
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="assignToIntern" class="form-label">Assign to Intern</label>
+                        <select class="form-select" id="assignToIntern" name="intern">
+                            <option value="Critical">Select Intern</option>
+                               @foreach ($intern as $interns)
+                            <option value="{{ $interns->intern_name }}">{{ $interns->intern_name }}</option>
+                               @endforeach
+                        </select>
                     </div>
-
-                    <div class="mb-3">
-                      {{-- <label for="name" class="form-label fs-4">Status</label> --}}
-                      <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="status" value="Not Started" hidden>
-                  </div>
-    
-                    <button type="submit" class="btn btn-primary btn-lg fs-4">Submit</button>
-                </form>
+                    <div class="col-md-6">
+                        <label for="supervisor" class="form-label">Supervisor in Charge</label>
+                        <select class="form-select" id="supervisor" name="supervisor">
+                            <option value="Nil">Select Supervisor</option>
+                            @foreach ($supervisor as $supervisor)
+                                 <option value="{{ $supervisor->supervisor_name }}">{{ $supervisor->supervisor_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-              </div>
-            
 
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="startDate" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="startDate" name="start_date">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="endDate" class="form-label">End Date</label>
+                        <input type="date" class="form-control" name="end_date">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{-- <label for="taskName" class="form-label">Status</label> --}}
+                    <input type="text" class="form-control" id="taskName" name="status" placeholder="Enter New Task" value="Not Started" hidden>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
-      {{-- content end  --}}
     </div>
-  </div>
-  <script src="{{ asset('../assets/libs/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('../assets/js/sidebarmenu.js') }}"></script>
-  <script src="{{ asset('../assets/js/app.min.js') }}"></script>
-  <script src="{{ asset('../assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-  <script src="{{ asset('../assets/libs/simplebar/dist/simplebar.js') }}"></script>
-  <script src="{{ asset('../assets/js/dashboard.js') }}"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -24,6 +24,7 @@ class supervisors extends Authenticatable
         'home_address',
         'studio',
         'password',
+        'role',
 
       ];
 

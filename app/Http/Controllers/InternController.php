@@ -99,9 +99,10 @@ class InternController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(interns $id)
     {
-        //
+        $id->delete();
+        return redirect('/intern/intern');
     }
 
      /**
@@ -125,10 +126,11 @@ class InternController extends Controller
 
 
         if (Auth::guard('intern')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            return redirect()->intended('intern/dashboard');
+            return redirect('intern/dashboard');
         }
 
-        return redirect('/');
+        // return redirect('/intern/show_login');
+        return back()->with('error', 'Invalid email or password.');
     }
 
     public function logout(Request $request)
@@ -146,10 +148,12 @@ class InternController extends Controller
     {
        $intern = Auth::guard('intern')->user();
 
-        $tasks = tasks::where('intern', $intern->intern_name)->get();
+        $task = tasks::where('intern', $intern->intern_name)->get();
+  
+        // dd($task);
 
         return view('dashboard.intern_dashbaord', [
-            'tasks' => $tasks,
+            'task' => $task,
             'user' => $intern
         ]);
     }

@@ -16,7 +16,7 @@ class ProjectController extends Controller
     public function index()
     {
         
-        $projects = projects::latest()->get();
+        $projects = projects::oldest()->get();
         ;
     
         return view('taskmanager.projects.project_listing', [
@@ -118,8 +118,10 @@ class ProjectController extends Controller
      */
     public function edit(projects $id)
     {
+        $company = companys::latest()->get();
         return view('taskmanager.projects.projects_edit', [
-            'projects' => $id
+            'projects' => $id,
+            'company' => $company,
         ]);
     }
 

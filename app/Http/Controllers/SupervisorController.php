@@ -14,7 +14,7 @@ class SupervisorController extends Controller
      */
     public function index()
     {
-        $supervisor = supervisors::latest()->get();
+        $supervisor = supervisors::oldest()->get();
 
         return view('taskmanager.supervisor.supervisor_listing', [
 
@@ -43,6 +43,7 @@ class SupervisorController extends Controller
             'home_address' => 'required',
             'studio' => 'required',
             'password'=> 'required',
+            'role' => 'required',
         ]);
 
         // dd($formField);
@@ -51,7 +52,7 @@ class SupervisorController extends Controller
 
         supervisors::create($formField);
 
-        return redirect('/');
+        return redirect('/supervisor/supervisor');
     }
 
     /**
@@ -117,10 +118,10 @@ class SupervisorController extends Controller
         // dd($formField);
 
         if (Auth::guard('supervisor')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            return redirect()->intended('/supervisor/dashboard');
+            return redirect('/supervisor/dashboard');
         }
 
-        return redirect('');
+        return back()->with('error', 'Invalid email or password.');
     }
 
     public function logout(Request $request)
@@ -129,7 +130,7 @@ class SupervisorController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('supervisor.login');
+        return redirect('/supervisor/show_login');
     }
 
     public function show_dashboard()
@@ -137,6 +138,7 @@ class SupervisorController extends Controller
         $supervisor = Auth::guard('supervisor')->user();
 
         $tasks = tasks::where('supervisor', $supervisor->supervisor_name)->get();
+        
         return view('dashboard.supervisor_dashbaord', [
             'tasks' => $tasks,
             'user' => $supervisor
@@ -146,9 +148,11 @@ class SupervisorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(supervisors $id)
     {
-        //
+        $id->delete();
+
+        return redirect('/supervisor/supervisor');
     }
 
       /**

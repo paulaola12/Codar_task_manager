@@ -42,6 +42,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
+            @if(session('error'))
+            <div class="alert alert-primary" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
             <div class="card p-4">
                 <h3 class="text-center mb-4">Intern Login</h3>
                 <form action="{{ route('intern_login') }}" method="POST">

@@ -1,65 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href="{{ asset('../assets/images/logos/favicon.png') }}" />
-  <link rel="stylesheet" href="{{ asset('../assets/css/styles.min.css') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Table Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 500;
+        }
+        .sidebar a:hover, .sidebar a:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .content {
+            flex-grow: 1;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #6a11cb;
+            color: #fff;
+        }
+        .table-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .table thead {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+        }
+        .table tbody tr:hover {
+            background-color: #f0f8ff;
+        }
+    </style>
 </head>
+<body>
+    <!-- Sidebar -->
+    <x-sidebarr />
 
-<body style="background-color: rgb(173, 216, 230);">
-  <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-    <!-- Sidebar Start -->
-    <x-sidebar />
-    <!--  Sidebar End -->
-    <!--  Main wrapper -->
-    <div class="body-wrapper">
-      <!--  Header Start -->
-      {{-- <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
-              </a>
-            </li>
-          </ul>
-          
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg mb-4">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">Intern Table</span>
+            </div>
         </nav>
-      </header> --}}
-      <!--  Header End -->
-      {{-- content start --}}
-      <div class="container mt-5">
-        <h2 class="text-center mb-4" style="font-weight: bold; font-family: 'Arial', sans-serif;">Intern Listing</h2>
 
-            <table class="table table-bordered table-striped text-center">
-                <thead class="table-dark">
+        <!-- Table Content -->
+        <div class="table-container">
+            <h4 class="mb-4">Intern Records</h4>
+            <table class="table table-striped table-hover">
+                <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Batch</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Studio</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
+
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($intern as $intern )
                     <tr>
                       <th scope="row">{{ $intern->id }}</th>
                       <td>{{ $intern->intern_name }}</td>
                       <td>{{ $intern->class }}</td>
+                      <td>{{ $intern->phone_number }}</td>
+                      <td>{{ $intern->email }}</td>
                       <td>{{ $intern->studio }}</td>
                       <td>
                         <a href="/intern/{{ $intern->id }}" class="btn btn-primary px-3" role="button">
@@ -75,23 +107,15 @@
                       </form> 
                       
                     </td> 
-                  </tr>
-                    @endforeach
-                    
-    
+                  </tr> 
+                  @endforeach
                 </tbody>
             </table>
-         </div>
-      {{-- content end  --}}
+        </div>
     </div>
-  </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-  <script src="../assets/js/dashboard.js"></script>
-</body>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
 </html>

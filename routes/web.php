@@ -77,6 +77,7 @@ Route::post('store', [InternController::class, 'store'])->name('create_intern');
 Route::get('create', [InternController::class, 'create'])->name('new_intern');
 Route::get('show_login', [InternController::class, 'show_login'])->name('show_login');
 Route::post('log_in', [InternController::class, 'login'] )->name('intern_login');
+Route::delete('/{id}', [InternController::class, 'destroy']);
 
 Route::get('/{id}', [InternController::class, 'show']);
 Route::put('/{id}', [InternController::class, 'update']);
@@ -117,6 +118,7 @@ Route::prefix('supervisor')->group(function (){
     Route::get('supervisor', [SupervisorController::class, 'index'])->name('supervisor_listing');
     Route::get('create', [SupervisorController::class, 'create'])->name('new_supervisor');
     Route::get('dashboard', [SupervisorController::class, 'show_dashboard']);
+    Route::delete('/{id}', [SupervisorController::class, 'destroy'] );
     Route::get('/{id}', [SupervisorController::class, 'show']);
     Route::put('/{id}', [SupervisorController::class, 'update']);
 
@@ -137,8 +139,20 @@ Route::get('/task_manager/create', [TaskController::class, 'create'])->name('new
 Route::post('/task_manager/store', [TaskController::class, 'store'])->name('create_task');
 Route::get('/task_manager/{project_name}', [TaskController::class, 'show']);
 Route::post('/update_task_status', [TaskController::class, 'updateStatus'])->name('update_task_status');
+Route::post('/approve_task', [TaskController::class, 'approveTask'])->name('approve-task');
 Route::get('/tasks/{id}', [TaskController::class, 'edit']);
 Route::put('/tasks/{id}', [TaskController::class, 'update']);
+
+
+
+Route::get('/test-supervisor', function () {
+   if (Auth::guard('supervisor')->check()) {
+       return Auth::guard('supervisor')->user();
+   } else {
+       return 'No supervisor logged in';
+   }
+});
+
 
 // Task controller ends 
 
