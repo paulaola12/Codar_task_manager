@@ -137,11 +137,17 @@ class SupervisorController extends Controller
     {
         $supervisor = Auth::guard('supervisor')->user();
 
-        $tasks = tasks::where('supervisor', $supervisor->supervisor_name)->get();
-        
+        $tasks = tasks::where('supervisor', $supervisor->supervisor_name)->where('is_approved', 0)->get();
+        $total_task = tasks::where('supervisor', $supervisor->supervisor_name)->count();
+         $total_completed = tasks::where('supervisor', $supervisor->supervisor_name)->where('status', 'completed')->where('is_approved', 1)->count();
+        // $display_unapproved = tasks::where('status', 'pending')->orWhere('status', 'completed')->where('is_approved', 0 )->get()
+        $total_pending = tasks::where('supervisor', $supervisor->supervisor_name)->whereIn('status', ['completed', 'pending'])->where('is_approved', 0)->count();
         return view('dashboard.supervisor_dashbaord', [
             'tasks' => $tasks,
-            'user' => $supervisor
+            'user' => $supervisor,
+            'total_task' => $total_task,
+            'total_completed' => $total_completed,
+            'total_pending' => $total_pending
         ]);
     }
 
@@ -154,6 +160,22 @@ class SupervisorController extends Controller
 
         return redirect('/supervisor/supervisor');
     }
+
+    // show supervisor Task Listing
+    public function show_all_task(){
+        $supervisor = Auth::guard('supervisor')->user();
+
+        $Alltasks = tasks::where('supervisor', $supervisor->supervisor_name)->get();
+
+        return view('dashboard.supervisor_sidebar_content.supervisor_task_listing', [
+            'Alltasks' => $Alltasks
+        ]);         
+    }
+
+    // show supervisor Awaiting Approval
+        
+
+
 
       /**
      * Show the Supervisor Log In page

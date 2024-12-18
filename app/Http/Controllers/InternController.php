@@ -46,6 +46,7 @@ class InternController extends Controller
            'class' => 'required',
            'studio'  => 'required',
            'password'  => 'required',
+           'role' => 'required'
 
         ]);
 
@@ -89,6 +90,7 @@ class InternController extends Controller
            'class' => 'nullable',
            'studio'  => 'nullable',
            'password'  => 'nullable',
+           'role' => 'required',
         ]);
 
         $id->update($formField);

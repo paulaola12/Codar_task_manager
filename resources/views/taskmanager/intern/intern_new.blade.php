@@ -117,6 +117,11 @@
                     </div>
                 </div>
 
+                <div class="mb-4">
+                    {{-- <label for="projectName" class="form-label">Role</label> --}}
+                    <input type="text" class="form-control" id="projectName"  value="intern" name="role" hidden>
+                </div>
+
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>

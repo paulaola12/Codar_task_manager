@@ -69,7 +69,7 @@
                     <div class="card text-center shadow-sm border-0" style="background: #ff9a9e; color: #fff;">
                         <div class="card-body">
                             <h5 class="card-title">Total Supervisors</h5>
-                            <p class="fs-4">150</p>
+                            <p class="fs-4">{{ $supervisor_count }}</p>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     <div class="card text-center shadow-sm border-0" style="background: #fbc2eb; color: #fff;">
                         <div class="card-body">
                             <h5 class="card-title">Total Interns</h5>
-                            <p class="fs-4">120</p>
+                            <p class="fs-4">{{ $intern_count }}</p>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <div class="card text-center shadow-sm border-0" style="background: #a1c4fd; color: #fff;">
                         <div class="card-body">
                             <h5 class="card-title">Total Assigned Tasks</h5>
-                            <p class="fs-4">30</p>
+                            <p class="fs-4">{{ $total_tasks }}</p>
                         </div>
                     </div>
                 </div>
@@ -95,8 +95,8 @@
                 <div class="col-md-3">
                     <div class="card text-center shadow-sm border-0" style="background: #c2e9fb; color: #fff;">
                         <div class="card-body">
-                            <h5 class="card-title">Total Completed</h5>
-                            <p class="fs-4">15</p>
+                            <h5 class="card-title">Total Appproved</h5>
+                            <p class="fs-4">{{ $total_approved }}</p>
                         </div>
                     </div>
                 </div>
@@ -104,35 +104,44 @@
 
             <!-- Table -->
             <div class="mt-5">
-                <h4>Recent Activities</h4>
+                <h4>Pending Approval</h4>
                 <table class="table table-striped shadow-sm">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Activity</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Date</th>
+                            <th scope="col">Task Name</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Intern</th>
+                            <th scope="col">Supervisor</th>
+                            <th scope="col">Has Intern Completed</th>
+                            <th scope="col">Approval Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Added new task</td>
-                            <td>John Doe</td>
-                            <td>2024-06-17</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Completed report submission</td>
-                            <td>Jane Smith</td>
-                            <td>2024-06-16</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Updated user profile</td>
-                            <td>Mike Johnson</td>
-                            <td>2024-06-15</td>
-                        </tr>
+                            @foreach ( $display_unapproved as $display_unapproved)
+                            <tr>
+                                <th scope="row">{{ $display_unapproved->id }}</th>
+                                <td>{{ $display_unapproved->task_name }}</td>
+                                <td>{{ $display_unapproved->priority }}</td>
+                                <td>{{ $display_unapproved->end_date }}</td>
+                                <td>{{ $display_unapproved->intern }}</td>
+                                <td>{{ $display_unapproved->supervisor }}</td>
+                                <td>{{ $display_unapproved->status }}</td>
+                                <td>{{ $display_unapproved->is_approved ? 'Approved' : 'Not Approved' }}</td>
+                                {{-- @if ($display_unapproved->status === false)
+    <td>Not Approved</td>
+@elseif ($display_unapproved->status === true)
+    <td>Approved</td>
+@else
+    <td>Unknown Status</td>
+@endif --}}
+
+
+                            </tr>
+                            @endforeach
+                        
+
                     </tbody>
                 </table>
             </div>

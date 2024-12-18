@@ -117,7 +117,8 @@ Route::prefix('supervisor')->group(function (){
     Route::post('logout', [SupervisorController::class, 'logout'])->name('supervisor.logout');
     Route::get('supervisor', [SupervisorController::class, 'index'])->name('supervisor_listing');
     Route::get('create', [SupervisorController::class, 'create'])->name('new_supervisor');
-    Route::get('dashboard', [SupervisorController::class, 'show_dashboard']);
+    Route::get('dashboard', [SupervisorController::class, 'show_dashboard'])->name('supervisor_dashbaord');
+    Route::get('show_task_listing', [SupervisorController::class, 'show_all_task'])->name('show_all_task');
     Route::delete('/{id}', [SupervisorController::class, 'destroy'] );
     Route::get('/{id}', [SupervisorController::class, 'show']);
     Route::put('/{id}', [SupervisorController::class, 'update']);
@@ -140,18 +141,19 @@ Route::post('/task_manager/store', [TaskController::class, 'store'])->name('crea
 Route::get('/task_manager/{project_name}', [TaskController::class, 'show']);
 Route::post('/update_task_status', [TaskController::class, 'updateStatus'])->name('update_task_status');
 Route::post('/approve_task', [TaskController::class, 'approveTask'])->name('approve-task');
+Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
 Route::get('/tasks/{id}', [TaskController::class, 'edit']);
 Route::put('/tasks/{id}', [TaskController::class, 'update']);
 
 
 
-Route::get('/test-supervisor', function () {
-   if (Auth::guard('supervisor')->check()) {
-       return Auth::guard('supervisor')->user();
-   } else {
-       return 'No supervisor logged in';
-   }
-});
+// Route::get('/test-supervisor', function () {
+//    if (Auth::guard('supervisor')->check()) {
+//        return Auth::guard('supervisor')->user();
+//    } else {
+//        return 'No supervisor logged in';
+//    }
+// });
 
 
 // Task controller ends 

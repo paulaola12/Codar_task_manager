@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="projectName" class="form-label">Intern Name</label>
+                    <label for="projectName" class="form-label">Intern Email</label>
                     <input type="email" class="form-control" id="projectName" name="email" value="{{ $intern->email }}" placeholder="{{ $intern->email }}">
                 </div>
 
@@ -119,6 +119,12 @@
                         {{-- <label for="name" class="form-label" >Password</label> --}}
                         <input type="text" class="form-control bg-body-tertiary bg-secondary-subtle" name="password" value="{{ $intern->password }}" placeholder="Enter New Password" hidden>
                     </div>
+
+                    <div class="mb-4">
+                        {{-- <label for="projectName" class="form-label">Role</label> --}}
+                        <input type="text" class="form-control" id="projectName"  value="intern" name="role" hidden>
+                    </div>
+    
                 </div>
 
                 <div class="d-grid">

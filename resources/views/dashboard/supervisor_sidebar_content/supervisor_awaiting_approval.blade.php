@@ -93,7 +93,7 @@
         </nav>
 
         <!-- Dashboard Stats -->
-        <div class="row mb-4">
+        {{-- <div class="row mb-4">
             <div class="col-md-4">
                 <div class="card">
                     <h5>Total Tasks</h5>
@@ -112,7 +112,7 @@
                     <h2>{{ $total_pending }}</h2>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Status Form -->
         <!-- Status Form -->
@@ -127,7 +127,6 @@
                     <th scope="col">Status</th>
                     <th scope="col">Intern Name</th>
                     <th scope="col">Task Is Approved?</th>
-                    <th scope="col">Submission Deadline</th>
                     <th scope="col">Approval </th>
                 </tr>
             </thead>
@@ -139,7 +138,6 @@
                     <td>{{ $task->status}}</td>
                     <td>{{ $task->intern}}</td>
                     <td>{{ $task->is_approved? 'Approved' : 'Awaiting Approval' }}</td>
-                    <td>{{ $task->end_date}}</td>
                     <td>
                         @if (Auth::guard('supervisor')->user()->role === 'supervisor' && $task->is_approved == 0 )
                             <form action="{{ route('approve-task') }}" method="POST">

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('class')->nullable();
             $table->string('studio')->nullable();
             $table->string('password');
+            $table->string('role');
             $table->timestamps();
         });
     }

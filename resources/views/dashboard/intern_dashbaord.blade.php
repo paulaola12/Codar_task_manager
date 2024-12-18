@@ -142,30 +142,26 @@
         <!-- Status Update Section -->
         <div class="status-form">
             <h4 class="mb-4">Update Task Status</h4>
-            <form>
+            <form action="{{ route('update_task_status') }}" method="POST">
+                @csrf
+                @foreach ($task as $task)
                 <div class="mb-3">
-                    {{-- <label for="taskStatus" class="form-label">Task Status</label> --}}
-                    
-                    {{-- dd($task) --}}
-                    @foreach ($task as $task)
-                    <form action="{{ route('update_task_status') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="id" value="{{ $task->id }}">
-                        <label for="status">{{ $task->task_name }}</label>
-                    <select class="form-select" id="taskStatus">
-                        {{-- <option selected disabled>Select task status</option> --}}
-                        {{ Auth::guard('intern')->user()->role === 'intern' ? 'onchange="checkInternStatus(this)"' : '' }}>
+                    <input type="hidden" name="id" value="{{ $task->id }}"> <!-- Array notation to send multiple IDs -->
+                    <label for="status">{{ $task->task_name }}</label>
+                    <select class="form-select" name="status"> <!-- Array notation to send multiple statuses -->
                         <option value="Pending" {{ $task->status === 'Pending' ? 'selected' : '' }}>Pending</option>
                         <option value="In Progress" {{ $task->status === 'In Progress' ? 'selected' : '' }}>In Progress</option>
                         <option value="Completed" {{ $task->status === 'Completed' ? 'selected' : '' }}>Completed</option>
                     </select>
-                </div> 
-                {{-- <div class="d-grid">
+                </div>
+                @endforeach
+                <div class="d-grid">
                     <button type="submit" class="btn">Submit</button>
-                </div> --}}
+                </div>
             </form>
-            @endforeach
         </div>
+        
+        
     </div>
 
     <script>

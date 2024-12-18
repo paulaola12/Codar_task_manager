@@ -186,7 +186,7 @@
 
                 <div class="mb-3">
                     {{-- <label for="taskName" class="form-label">Status</label> --}}
-                    <input type="text" class="form-control" id="taskName" name="status" placeholder="Enter New Task" value="Not Started" hidden>
+                    <input type="text" class="form-control" id="taskName" name="status" placeholder="Enter New Task" value="pending" hidden>
                 </div>
 
                 <div class="d-grid">

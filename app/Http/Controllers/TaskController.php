@@ -7,6 +7,7 @@ use App\Models\interns;
 use App\Models\projects;
 use App\Models\supervisors;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -155,9 +156,10 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(tasks $id)
     {
-        //
+        $id->delete();
+        return redirect('/task_manager/task_listing'); 
     }
 
     // logged in as an intern . steps to update status 
@@ -180,50 +182,88 @@ class TaskController extends Controller
 
 public function updateStatus(Request $request)
 {
+ 
+
     $request->validate([
         'id' => 'required',
         'status' => 'required',
     ]);
-
+    // dd($request->all());  
     $task = tasks::find($request->id);
 
-    // Check if the user is an intern
-    if (Auth::guard('intern')->user()->role === 'intern' && $request->status === 'Completed') {
-        return response()->json(['message' => 'Wait for Supervisor or Admin Approval.'], 403);
+    // dd($task);
+    
+    if (Auth::guard('intern')->user()->role === 'intern' && $request->status === 'Completed') {   
     }
-
+    // dd($request->status); 
     // Update the task status
     $task->status = $request->status;
+    // dd($task);
 
     // If "Completed" is requested, require approval
-    if ($request->status === 'Completed') {
-        $task->is_approved = false; // Pending approval
-    }
+    // if ($request->status === 'Completed') {
+    //     $task->is_approved = false; 
+    // }
 
     $task->save();
 
-    return response()->json(['message' => 'Task status updated successfully.']);
+    return  redirect('/intern/dashboard');
+    
+    // response()->json(['message' => 'Task status updated successfully.']);
 }
+
+// public function updateStatus(Request $request)
+// {
+//     $request->validate([
+//         'id' => 'required',
+//         'status' => 'required',
+//     ]);
+    
+//     dd($request->all());
+//     // Find the task by ID
+//     $task = tasks::find($request->id);
+//     // dd($task);
+//     if (!$task) {
+//         return response()->json(['message' => 'Task not found.'], 404); // Task not found
+//     }
+
+//     // Check if the user is an intern and trying to mark as Completed
+//     if (Auth::guard('intern')->user()->role === 'intern' && $request->status === 'Completed') {
+//         return response()->json(['message' => 'Wait for Supervisor or Admin Approval.'], 403);
+//     }
+
+//     // Update task status
+//     // dd($task->status);
+//     $task->status = $request->status;
+
+//     // If "Completed" is requested, require approval
+//     if ($request->status === 'Completed') {
+//         $task->is_approved = false; // Pending approval
+//     }
+
+//     $task->save();
+
+//     return response()->json(['message' => 'Task status updated successfully.']);
+// }
+
 
 
 public function approveTask(Request $request)
 {
+    dd($request->all());
     $request->validate([
         'id' => 'required|exists:tasks,id',
     ]);
 
     $task = tasks::find($request->id);
-
-    // supervisors or admins can approve
     if (Auth::guard('supervisor')->user()->role !== 'supervisor' && Auth::guard('admin')->user()->role !== 'admin') {
         return response()->json(['message' => 'Unauthorized.'], 403);
     }
-
     $task->is_approved = true; // Approve the task
     $task->save();
 
     // return response()->json(['message' => 'Task approved successfully.']);
-    return redirect('/supervisor/dshboard');
+    return redirect('/supervisor/dashboard');
 }
 
 

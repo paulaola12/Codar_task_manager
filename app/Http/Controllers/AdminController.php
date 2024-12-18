@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 // use auth;
 
 use App\Models\Admin;
+use App\Models\tasks;
 use App\Models\admins;
+use App\Models\interns;
+use App\Models\supervisors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +18,19 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $supervisor_count = supervisors::where('role', 'supervisor')->count();
+        $intern_count = interns::where('role', 'intern')->count();
+        $total_tasks = tasks::count();
+        $total_approved = tasks::where('is_approved', '1')->count();
+        $display_unapproved = tasks::where('status', 'pending')->orWhere('status', 'completed')->where('is_approved', 0 )->get();  
+        // dd( $display_unapproved);
+        return view('index', [
+            'supervisor_count' => $supervisor_count,
+            'intern_count' => $intern_count,
+            'total_tasks' => $total_tasks,
+            'total_approved' => $total_approved,
+            'display_unapproved' => $display_unapproved
+        ]);
     }
 
      /**

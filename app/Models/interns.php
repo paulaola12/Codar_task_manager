@@ -26,6 +26,7 @@ class interns extends Authenticatable
            'class',
            'studio',
            'password',
+           'role'
       ];
 
       protected $hidden = [
