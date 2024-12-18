@@ -250,7 +250,7 @@ public function updateStatus(Request $request)
 
 public function approveTask(Request $request)
 {
-    dd($request->all());
+    // dd($request->all());
     $request->validate([
         'id' => 'required|exists:tasks,id',
     ]);
@@ -259,12 +259,23 @@ public function approveTask(Request $request)
     if (Auth::guard('supervisor')->user()->role !== 'supervisor' && Auth::guard('admin')->user()->role !== 'admin') {
         return response()->json(['message' => 'Unauthorized.'], 403);
     }
-    $task->is_approved = true; // Approve the task
-    $task->save();
 
-    // return response()->json(['message' => 'Task approved successfully.']);
+    // $task->is_approved = true; // Approve the task
+    // $task->save();
+
+    $completedTask = tasks::where('status', 'completed')->first();
+
+    if ($completedTask) {
+    $task->is_approved = true; 
+    $task->save(); 
+
+
     return redirect('/supervisor/dashboard');
+  } else{
+    return redirect('/supervisor/dashboard');
+  }
 }
+
 
 
 }

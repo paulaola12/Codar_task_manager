@@ -56,8 +56,9 @@
     <div class="content">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg mb-4">
+         
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">Welcome, Admin</span>
+                <span class="navbar-brand mb-0 h1">Welcome, {{ Auth::guard('admin')->user()->name }}</span>
             </div>
         </nav>
 
@@ -105,6 +106,9 @@
             <!-- Table -->
             <div class="mt-5">
                 <h4>Pending Approval</h4>
+                @if ($dont_display_approved == 0)
+                   <p>No Pending Approval</p> 
+                @else
                 <table class="table table-striped shadow-sm">
                     <thead>
                         <tr>
@@ -143,7 +147,9 @@
                         
 
                     </tbody>
-                </table>
+                </table> 
+                @endif
+               
             </div>
         </div>
     </div>

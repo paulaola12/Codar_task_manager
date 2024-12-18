@@ -22,14 +22,16 @@ class AdminController extends Controller
         $intern_count = interns::where('role', 'intern')->count();
         $total_tasks = tasks::count();
         $total_approved = tasks::where('is_approved', '1')->count();
-        $display_unapproved = tasks::where('status', 'pending')->orWhere('status', 'completed')->where('is_approved', 0 )->get();  
+        $display_unapproved = tasks::where('status', 'pending')->orWhere('status', 'completed')->where('is_approved', 0 )->get(); 
+        $dont_display_approved = tasks::where('status', 'completed')->where('is_approved', 0 )->count();  
         // dd( $display_unapproved);
         return view('index', [
             'supervisor_count' => $supervisor_count,
             'intern_count' => $intern_count,
             'total_tasks' => $total_tasks,
             'total_approved' => $total_approved,
-            'display_unapproved' => $display_unapproved
+            'display_unapproved' => $display_unapproved,
+            'dont_display_approved' => $dont_display_approved
         ]);
     }
 
@@ -81,7 +83,7 @@ class AdminController extends Controller
      */
     public function show_register()
     {
-        return view('registeration.register_admin');
+        return view('taskmanager.admin.admin_new');
     }
 
 
@@ -106,7 +108,7 @@ class AdminController extends Controller
         return back()->withErrors(['email' => 'Invalid credentials.']);
 
 
-        return redirect('/');
+       
     }
 
 

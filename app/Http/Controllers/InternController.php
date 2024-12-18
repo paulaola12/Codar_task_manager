@@ -151,12 +151,19 @@ class InternController extends Controller
        $intern = Auth::guard('intern')->user();
 
         $task = tasks::where('intern', $intern->intern_name)->get();
-  
-        // dd($task);
+        $pendingTasks = tasks::where('intern', $intern->intern_name)->where('status', 'pending')->select('id')->count();
+        $task_count = tasks::where('intern', $intern->intern_name)->count();
+        $task_completed = tasks::where('intern', $intern->intern_name)->where('status', 'completed')->where('is_approved', 1)->count();
+        $pending_approval = tasks::where('intern', $intern->intern_name)->where('status', 'completed')->where('is_approved', 0)->count();
+        // dd($pendingTasks);
 
         return view('dashboard.intern_dashbaord', [
             'task' => $task,
-            'user' => $intern
+            'user' => $intern,
+            'task_count' => $task_count,
+            'task_completed' => $task_completed,
+            'pending_approval' => $pending_approval,
+            'pendingTasks' => $pendingTasks
         ]);
     }
     

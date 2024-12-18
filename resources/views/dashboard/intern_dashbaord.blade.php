@@ -122,19 +122,19 @@
             <div class="col-md-4">
                 <div class="card">
                     <h5>Total Tasks</h5>
-                    <h2>50</h2>
+                    <h2>{{ $task_count }}</h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
                     <h5>Completed Tasks</h5>
-                    <h2>35</h2>
+                    <h2>{{ $task_completed }}</h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <h5>Pending Tasks</h5>
-                    <h2>15</h2>
+                    <h5>Pending Approval</h5>
+                    <h2>{{ $pending_approval }}</h2>
                 </div>
             </div>
         </div>
@@ -144,20 +144,34 @@
             <h4 class="mb-4">Update Task Status</h4>
             <form action="{{ route('update_task_status') }}" method="POST">
                 @csrf
-                @foreach ($task as $task)
-                <div class="mb-3">
-                    <input type="hidden" name="id" value="{{ $task->id }}"> <!-- Array notation to send multiple IDs -->
-                    <label for="status">{{ $task->task_name }}</label>
-                    <select class="form-select" name="status"> <!-- Array notation to send multiple statuses -->
-                        <option value="Pending" {{ $task->status === 'Pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="In Progress" {{ $task->status === 'In Progress' ? 'selected' : '' }}>In Progress</option>
-                        <option value="Completed" {{ $task->status === 'Completed' ? 'selected' : '' }}>Completed</option>
-                    </select>
-                </div>
-                @endforeach
-                <div class="d-grid">
-                    <button type="submit" class="btn">Submit</button>
-                </div>
+                
+                
+                 @foreach ($task as $task)
+                    @if ($task->status !== 'Completed')
+                    <div class="mb-3">
+                        <input type="hidden" name="id" value="{{ $task->id }}"> <!-- Array notation to send multiple IDs -->
+                        <label for="status">{{ $task->task_name }}</label>
+                        <select class="form-select" name="status"> <!-- Array notation to send multiple statuses -->
+                            <option value="Pending" {{ $task->status === 'Pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="In Progress" {{ $task->status === 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                            <option value="Completed" {{ $task->status === 'Completed' ? 'selected' : '' }}>Completed</option>
+                        </select>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn">Submit</button>
+                    </div>
+                        
+                    @endif
+                   
+                 @endforeach 
+                 
+                 @if ($pendingTasks == 0)
+                    <p>No Pending Tasks</P> 
+                 @endif
+                
+                
+              
+              
             </form>
         </div>
         

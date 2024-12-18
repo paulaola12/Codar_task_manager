@@ -51,7 +51,7 @@
                 {{-- <li><a class="dropdown-item text-white" href="#">Task Reports</a></li> --}}
             </ul>
         </div>
-        <a href="#">Reports</a>
+        <a href="{{ route('show_register') }}">Admins</a>
         <a href="#">Settings</a>
         <a href="#" class="mt-auto border-top">Logout</a>
     </div>

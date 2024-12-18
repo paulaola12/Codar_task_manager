@@ -138,16 +138,21 @@ class SupervisorController extends Controller
         $supervisor = Auth::guard('supervisor')->user();
 
         $tasks = tasks::where('supervisor', $supervisor->supervisor_name)->where('is_approved', 0)->get();
+        $taskCount = tasks::where('supervisor', $supervisor->supervisor_name)->where('is_approved', 0)->count();
         $total_task = tasks::where('supervisor', $supervisor->supervisor_name)->count();
          $total_completed = tasks::where('supervisor', $supervisor->supervisor_name)->where('status', 'completed')->where('is_approved', 1)->count();
         // $display_unapproved = tasks::where('status', 'pending')->orWhere('status', 'completed')->where('is_approved', 0 )->get()
-        $total_pending = tasks::where('supervisor', $supervisor->supervisor_name)->whereIn('status', ['completed', 'pending'])->where('is_approved', 0)->count();
+        $total_pending = tasks::where('supervisor', $supervisor->supervisor_name)->where('status', 'pending')->where('is_approved', 0)->count();
+        $pending_approval = tasks::where('supervisor', $supervisor->supervisor_name)->where('status', 'completed')->where('is_approved', 0)->count();
+    //    dd($taskCount);
         return view('dashboard.supervisor_dashbaord', [
             'tasks' => $tasks,
             'user' => $supervisor,
             'total_task' => $total_task,
             'total_completed' => $total_completed,
-            'total_pending' => $total_pending
+            'total_pending' => $total_pending,
+            'pending_approval' => $pending_approval,
+            'taskCount' => $taskCount
         ]);
     }
 

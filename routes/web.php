@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function (){
    Route::get('show_register', [AdminController::class, 'show_register'])->name('show_register');
    Route::get('show_login', [AdminController::class, 'show_login'])->name('admin.login');
    Route::post('create_admin', [AdminController::class, 'create'])->name('admin.create');
-   Route::post('login_user', [AdminController::class, 'login'])->name('admin.logina');
+   Route::post('login_user', [AdminController::class, 'login'])->name('login.admin');
    Route::post('logout', [AdminController::class, 'logout'])->name('admin.logina');
 });
 
@@ -70,7 +70,6 @@ Route::middleware('auth:intern')->prefix('intern')->group(function () {
 Route::get('dashboard', [InternController::class, 'show_dashboard']);
 Route::post('logout', [InternController::class, 'logout'] )->name('intern.logout');   
 });
-
 Route::prefix('intern')->group(function (){
 Route::get('intern', [InternController::class, 'index'])->name('intern_listing');
 Route::post('store', [InternController::class, 'store'])->name('create_intern');
@@ -86,10 +85,6 @@ Route::put('/{id}', [InternController::class, 'update']);
 
 
 // intern controller ends
-
-
-
-
 
 
 // Project Controller

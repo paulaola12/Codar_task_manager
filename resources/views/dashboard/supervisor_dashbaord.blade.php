@@ -94,22 +94,28 @@
 
         <!-- Dashboard Stats -->
         <div class="row mb-4">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     <h5>Total Tasks</h5>
                     <h2>{{ $total_task }}</h2>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     <h5>Completed Tasks</h5>
                     <h2>{{ $total_completed }}</h2>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     <h5>Pending Tasks</h5>
                     <h2>{{ $total_pending }}</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <h5>Pending Approval</h5>
+                    <h2>{{ $pending_approval }}</h2>
                 </div>
             </div>
         </div>
@@ -119,44 +125,54 @@
 <div class="status-form">
     <div class="mt-5">
         <h4>Pending Approval</h4>
+        
+        @if ($taskCount == 0)
+
+        <p>No Pending Task</p>
+        @else
+
         <table class="table table-striped shadow-sm">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Task</th>
-                    <th scope="col">Status</th>
                     <th scope="col">Intern Name</th>
-                    <th scope="col">Task Is Approved?</th>
+                    <th scope="col">Status(Student Dashboard)</th>
+                    <th scope="col">Approved?</th>
                     <th scope="col">Submission Deadline</th>
                     <th scope="col">Approval </th>
                 </tr>
             </thead>
             <tbody>
+            
                 @foreach ($tasks as $index => $task)
                 <tr>
                     <th scope="row">{{ $task->id }}</th>
                     <td> {{ $task->task_name }}</td>
-                    <td>{{ $task->status}}</td>
                     <td>{{ $task->intern}}</td>
-                    <td>{{ $task->is_approved? 'Approved' : 'Awaiting Approval' }}</td>
+                    <td>{{ $task->status}}</td>
+                    <td>{{ $task->is_approved? 'Yes' : 'No' }}</td>
                     <td>{{ $task->end_date}}</td>
-                    <td>
-                        @if (Auth::guard('supervisor')->user()->role === 'supervisor' && $task->is_approved == 0 )
+                    <td>  
+                        @if (Auth::guard('supervisor')->user()->role === 'supervisor' && $task->is_approved == 0 && strtolower(trim($task->status)) !== "pending")   
                             <form action="{{ route('approve-task') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $task->id }}">
-                                <button type="submit" class="btn btn-light">Approve</button>
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $task->id }}">
+                                    <button type="submit" class="btn btn-light">Approve</button>
                             </form>
-                                
-                        @else 
-                                <p> Approved </p>
-                        @endif 
-                    </td> 
+                        @endif
+                            {{-- <p> Intern should submit</p> --}}
+                        {{-- @endif --}}
+                    </td>    
                 </tr>
                 @endforeach
+                
         </tbody>
            
         </table>
+
+        @endif
+       
 
 
 
