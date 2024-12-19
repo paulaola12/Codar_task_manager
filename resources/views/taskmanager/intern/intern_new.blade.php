@@ -102,7 +102,7 @@
 
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <label for="priority" class="form-label">Priority</label>
+                        <label for="priority" class="form-label">Studio</label>
                         <select class="form-select"  name="studio">
                             <option value="Gbagada">Gbagada</option>
                             <option value="Yaba">Yaba</option>

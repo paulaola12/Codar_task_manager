@@ -42,6 +42,7 @@ Route::prefix('admin')->group(function (){
    Route::post('create_admin', [AdminController::class, 'create'])->name('admin.create');
    Route::post('login_user', [AdminController::class, 'login'])->name('login.admin');
    Route::post('logout', [AdminController::class, 'logout'])->name('admin.logina');
+   Route::get('data_page', [AdminController::class, 'show_data_page'])->name('admin.datapage');
 });
 
 // Route::get('/debug', function () {
@@ -77,6 +78,7 @@ Route::get('create', [InternController::class, 'create'])->name('new_intern');
 Route::get('show_login', [InternController::class, 'show_login'])->name('show_login');
 Route::post('log_in', [InternController::class, 'login'] )->name('intern_login');
 Route::delete('/{id}', [InternController::class, 'destroy']);
+Route::get('data_page', [InternController::class, 'show_data_page'])->name('intern.datapage');
 
 Route::get('/{id}', [InternController::class, 'show']);
 Route::put('/{id}', [InternController::class, 'update']);

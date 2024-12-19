@@ -82,7 +82,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="companyDescription" class="form-label">Company Description</label>
-                    <textarea class="form-control" id="companyDescription" rows="5" name="company_description" value="{{ $company->company_description }}" placeholder="{{ $company->company_description }}" ></textarea>
+                    <input class="form-control" id="companyDescription" rows="5" name="company_description" value="{{ $company->company_description }}" placeholder="{{ $company->company_description }}" ></input>
                 </div>
                 <div class="mb-4">
                     <label for="companyType" class="form-label">Studio</label>

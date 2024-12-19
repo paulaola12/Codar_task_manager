@@ -67,6 +67,16 @@
             </div>
         </nav>
 
+        <div class="text-center" style="margin-top: 20px;">
+            @if(session('task'))
+                <div class="alert alert-success" id="task_alert">
+                    {{ session('task') }}
+                </div>
+            @endif
+        </div>
+
+
+
         <!-- Table Content -->
         <div class="table-container">
             <h4 class="mb-4">Projects Records</h4>
@@ -122,6 +132,17 @@
             </table>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var alert = document.getElementById('task_alert');
+            if (alert) {
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 1000);  
+            }
+        });
+    </script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>

@@ -56,7 +56,7 @@ class InternController extends Controller
 
         interns::create($formField);
 
-        return redirect('/intern/intern');
+        return redirect('/intern/intern')->with('intern', 'Intern Created Successfully');;
     }
 
     /**
@@ -95,7 +95,7 @@ class InternController extends Controller
 
         $id->update($formField);
 
-        return redirect('/intern/intern');
+        return redirect('/intern/intern')->with('intern', 'Update was Successfull');;
     }
 
     /**
@@ -104,7 +104,7 @@ class InternController extends Controller
     public function destroy(interns $id)
     {
         $id->delete();
-        return redirect('/intern/intern');
+        return redirect('/intern/intern')->with('intern', 'Deleted Successfully');
     }
 
      /**
@@ -128,11 +128,11 @@ class InternController extends Controller
 
 
         if (Auth::guard('intern')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            return redirect('intern/dashboard');
+            return redirect('intern/dashboard')->with('intern', 'Logged-in Successfully');
         }
 
         // return redirect('/intern/show_login');
-        return back()->with('error', 'Invalid email or password.');
+        return back()->with('intern', 'Invalid Email or Password');
     }
 
     public function logout(Request $request)
@@ -140,7 +140,7 @@ class InternController extends Controller
         Auth::guard('intern')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/intern/show_login');
+        return redirect('/intern/show_login')->with('intern', 'Logged-in Successfully');
     }
 
       /**
@@ -165,6 +165,17 @@ class InternController extends Controller
             'pending_approval' => $pending_approval,
             'pendingTasks' => $pendingTasks
         ]);
+    }
+
+    public function show_data_page()
+    {
+        $logged_in_intern = Auth::guard('intern')->user();
+        $logged_in_intern = interns::find( $logged_in_intern->id);
+
+       return view('taskmanager.intern.intern_data_page',[
+        'logged_in_intern' => $logged_in_intern,
+       ]);
+        
     }
     
 

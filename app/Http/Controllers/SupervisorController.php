@@ -52,7 +52,7 @@ class SupervisorController extends Controller
 
         supervisors::create($formField);
 
-        return redirect('/supervisor/supervisor');
+        return redirect('/supervisor/supervisor')->with('supervisor', 'Supervisor Created Successfully');;
     }
 
     /**
@@ -86,7 +86,7 @@ class SupervisorController extends Controller
 
         $id->update($formField);
 
-        return redirect('/supervisor/supervisor');
+        return redirect('/supervisor/supervisor')->with('supervisor', 'Supervisor Updated Successfully');;
     }
 
 
@@ -118,7 +118,7 @@ class SupervisorController extends Controller
         // dd($formField);
 
         if (Auth::guard('supervisor')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            return redirect('/supervisor/dashboard');
+            return redirect('/supervisor/dashboard')->with('supervisor', 'Login was Successful');;
         }
 
         return back()->with('error', 'Invalid email or password.');
@@ -130,7 +130,7 @@ class SupervisorController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/supervisor/show_login');
+        return redirect('/supervisor/show_login')->with('Supervisor', 'Logout was Successful');;
     }
 
     public function show_dashboard()
@@ -163,7 +163,7 @@ class SupervisorController extends Controller
     {
         $id->delete();
 
-        return redirect('/supervisor/supervisor');
+        return redirect('/supervisor/supervisor')->with('Supervisor', 'Deleted Successfully');;
     }
 
     // show supervisor Task Listing

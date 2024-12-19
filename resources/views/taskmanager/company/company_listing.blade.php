@@ -66,6 +66,13 @@
                 <span class="navbar-brand mb-0 h1">Company Table</span>
             </div>
         </nav>
+            <div class="text-center" style="margin-top: 20px;">
+                @if(session('company'))
+                    <div class="alert alert-success" id="company_alert">
+                        {{ session('company') }}
+                    </div>
+                @endif
+            </div>
 
         <!-- Table Content -->
         <div class="table-container">
@@ -116,6 +123,17 @@
             </table>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var alert = document.getElementById('company_alert');
+            if (alert) {
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 1000);  
+            }
+        });
+    </script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>

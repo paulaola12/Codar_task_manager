@@ -61,6 +61,15 @@
                 <span class="navbar-brand mb-0 h1">Welcome, {{ Auth::guard('admin')->user()->name }}</span>
             </div>
         </nav>
+        {{-- Session --}}
+        <div class="text-center" style="margin-top: 20px;" >
+            @if (session('admin'))
+            <div class = "alert alert-success" id="admin_alert">
+                    {{ session('admin') }}
+            </div> 
+            @endif
+        </div>
+        {{-- Session Eends  --}}
 
         <!-- Dashboard Content -->
         <div class="container">
@@ -120,6 +129,7 @@
                             <th scope="col">Supervisor</th>
                             <th scope="col">Has Intern Completed</th>
                             <th scope="col">Approval Status</th>
+                            <th scope="col">Approve</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,6 +143,15 @@
                                 <td>{{ $display_unapproved->supervisor }}</td>
                                 <td>{{ $display_unapproved->status }}</td>
                                 <td>{{ $display_unapproved->is_approved ? 'Approved' : 'Not Approved' }}</td>
+                                <td>
+                                    @if (Auth::guard('admin')->user()->role === 'admin' && $display_unapproved->is_approved == 0 && strtolower(trim($display_unapproved->status)) !== "pending")   
+                                    <form action="{{ route('approve-task') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $display_unapproved->id }}">
+                                            <button type="submit" class="btn btn-danger">Approve</button>
+                                    </form>
+                                @endif
+                                </td>
                                 {{-- @if ($display_unapproved->status === false)
     <td>Not Approved</td>
 @elseif ($display_unapproved->status === true)
@@ -153,6 +172,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            var alert = document.getElementById('admin_alert');
+            if (alert) {
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 1000);  
+            }
+        });
+    </script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>

@@ -117,10 +117,10 @@
                     </div>
                 </div>
 
-                <div class="mb-4">
+                {{-- <div class="mb-4">
                     <label for="additionalNotes" class="form-label">Additional Notes</label>
                     <textarea class="form-control" id="additionalNotes" name="message" rows="4" placeholder="Write your message"></textarea>
-                </div>
+                </div> --}}
 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Submit</button>

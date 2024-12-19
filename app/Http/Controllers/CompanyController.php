@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\companys;
+use Illuminate\Http\Request;
 Use App\Models\studios;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 
 class CompanyController extends Controller
@@ -51,7 +52,9 @@ class CompanyController extends Controller
 
         companys::create($formField);
 
-        return redirect('/company_manager/company_listing');
+        // Session::flash();
+
+        return redirect('/company_manager/company_listing')->with('company', 'Company Created successfully');;
     }
 
     /**
@@ -87,6 +90,8 @@ class CompanyController extends Controller
 
        $id->update($formField);
 
+       Session::flash('company', 'Compnay Updated Successfully');
+
        return redirect('/company_manager/company_listing');
     }
 
@@ -96,6 +101,8 @@ class CompanyController extends Controller
     public function destroy(companys $id)
     {
         $id->delete();
+
+        Session::flash('company', 'Deleted Successfully');
 
         return redirect('/company_manager/company_listing');
     }

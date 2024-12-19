@@ -84,12 +84,12 @@ class ProjectController extends Controller
             'company' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'message' => 'required',
+            // 'message' => 'required',
         ]);
         
         projects::create($formField);
 
-        return redirect('project_manager/project_listing');
+        return redirect('project_manager/project_listing')->with('project', 'Project Created Successfully');
     }
 
     public function getProjectDetails($project_name)
@@ -109,10 +109,6 @@ class ProjectController extends Controller
         }
  
     
-
-
-   
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -137,7 +133,7 @@ class ProjectController extends Controller
               'priority' => 'required',
              'start_date' => 'nullable',
              'end_date' => 'nullable',
-             'message' => 'nullable',
+            //  'message' => 'nullable',
 
              
          ]);
@@ -146,7 +142,7 @@ class ProjectController extends Controller
 
          $id->update($formField);
 
-         return redirect('project_manager/project_listing');
+         return redirect('project_manager/project_listing')->with('project', 'Project Updated Successfully');;
     }
 
     /**
@@ -156,6 +152,6 @@ class ProjectController extends Controller
     {
         $id->delete();
 
-        return redirect('project_manager/project_listing');
+        return redirect('project_manager/project_listing')->with('project', 'Project Deleted Successfully');;
     }
 }

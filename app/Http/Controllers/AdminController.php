@@ -65,6 +65,7 @@ class AdminController extends Controller
             'phone_number' => 'required',
             'address' => 'required',
             'password'=> 'required',
+            'role' => 'required'
 
         ]);
 
@@ -73,9 +74,8 @@ class AdminController extends Controller
         $formField['password'] = bcrypt( $formField['password']);
 
         admins::create($formField);
-        return redirect('/');
-        
 
+        return redirect('/')->with('admin', 'Admin Created Successfully');
     }
 
     /**
@@ -102,7 +102,7 @@ class AdminController extends Controller
         // dd($formField);
 
         if (Auth::guard('admin')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            return redirect()->intended('/');
+            return redirect('/')->with('admin', 'Logged In Successfully');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials.']);
@@ -121,7 +121,21 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('/');
+        return redirect()->route('/admin/show_register');
+    }
+
+     /**
+     * Display Data Page .
+     */
+    public function show_data_page()
+    {
+        $logged_in_admin = Auth::guard('admin')->user();
+        $logged_in_admin = admins::find( $logged_in_admin->id);
+
+       return view('taskmanager.admin.admin_data_page',[
+        'logged_in_admin' => $logged_in_admin,
+       ]);
+        
     }
 
     /**

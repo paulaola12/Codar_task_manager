@@ -83,7 +83,7 @@
 
                 <div class="mb-4">
                     <label for="projectDescription" class="form-label">Project Description</label>
-                    <textarea class="form-control" id="projectDescription" name="project_description" value="{{ $projects->project_description }}" rows="4" placeholder="{{ $projects->project_description }}"></textarea>
+                    <input class="form-control" id="projectDescription" name="project_description" value="{{ $projects->project_description }}" rows="4" placeholder="{{ $projects->project_description }}"></input>
                 </div>
 
                 <div class="row mb-4">
@@ -119,10 +119,10 @@
                     </div>
                 </div>
 
-                <div class="mb-4">
+                {{-- <div class="mb-4">
                     <label for="additionalNotes" class="form-label">Additional Notes</label>
                     <textarea class="form-control" id="additionalNotes" name="message" rows="4" value="{{ $projects->message }}" placeholder="{{ $projects->message }}" ></textarea>
-                </div>
+                </div> --}}
 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Submit</button>

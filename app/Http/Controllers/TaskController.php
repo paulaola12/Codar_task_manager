@@ -70,7 +70,7 @@ class TaskController extends Controller
 
        tasks::create($formField);
 
-       return redirect('/task_manager/task_listing');
+       return redirect('/task_manager/task_listing')->with('task', 'Task Created Successfully');
 
     //    dd($formField);
     }
@@ -150,7 +150,7 @@ class TaskController extends Controller
        $id->update($formField);
     //    tasks::create($formField);
 
-       return redirect('/task_manager/task_listing');
+       return redirect('/task_manager/task_listing')->with('task', 'Update Was Successful');
     }
 
     /**
@@ -159,7 +159,7 @@ class TaskController extends Controller
     public function destroy(tasks $id)
     {
         $id->delete();
-        return redirect('/task_manager/task_listing'); 
+        return redirect('/task_manager/task_listing')->with('task', 'Task Deleted Successfully');; 
     }
 
     // logged in as an intern . steps to update status 
@@ -256,9 +256,21 @@ public function approveTask(Request $request)
     ]);
 
     $task = tasks::find($request->id);
-    if (Auth::guard('supervisor')->user()->role !== 'supervisor' && Auth::guard('admin')->user()->role !== 'admin') {
+    // dd(Auth::guard('admin')->user()->role); 
+    // if (Auth::guard('supervisor')->user()->role !== 'supervisor' && Auth::guard('admin')->user()->role !== 'admin') {
+    //     return response()->json(['message' => 'Unauthorized.'], 403);
+    // }
+
+    $user = Auth::guard('admin')->user() ?: Auth::guard('supervisor')->user();
+
+    // dd($user);
+
+    if (!$user || !in_array($user->role, ['admin', 'supervisor'])) {
         return response()->json(['message' => 'Unauthorized.'], 403);
     }
+
+// Proceed with your logic for admin or supervisor...
+
 
     // $task->is_approved = true; // Approve the task
     // $task->save();
@@ -269,12 +281,37 @@ public function approveTask(Request $request)
     $task->is_approved = true; 
     $task->save(); 
 
+    // return redirect('/supervisor/dashboard');
 
-    return redirect('/supervisor/dashboard');
-  } else{
-    return redirect('/supervisor/dashboard');
-  }
+//     if (Auth::guard('supervisor')->user()->role('supervisor')){
+//         return redirect('/supervisor/dashboard')->with('supervisor', 'Task Approved Successfully');
+//     }
+//     elseif(Auth::guard('admin')->user()->role('admin')){
+//         return redirect('/')->with('admin', 'Task Approved Sucessfully');
+//     }
+
+//   } else{
+//     if (Auth::guard('supervisor')->check()) {
+//         return redirect('/supervisor/dashboard')->with('admin', 'Unsuccessful');
+//     } elseif (Auth::guard('admin')->check()) {
+//         return redirect('/')->with('supervisor', 'Unsuccessful');
+//     }
+
+if ($user->role === 'supervisor') {
+    return redirect('/supervisor/dashboard')->with('supervisor', 'Task Approved Successfully');
+} elseif ($user->role === 'admin') {
+    return redirect('/')->with('admin', 'Task Approved Successfully');
 }
+} else {
+// Handle unsuccessful case
+if (Auth::guard('supervisor')->check()) {
+    return redirect('/supervisor/dashboard')->with('supervisor', 'Unsuccessful');
+} elseif (Auth::guard('admin')->check()) {
+    return redirect('/')->with('admin', 'Unsuccessful');
+}
+}
+  }
+
 
 
 
