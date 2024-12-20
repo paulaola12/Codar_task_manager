@@ -2,8 +2,11 @@
     <h4 class="text-center py-3 border-bottom">Supervisor Dashboard</h4>
     <a href="{{ route('supervisor_dashbaord') }}" class="active">Dashboard</a>
     <div class="dropdown">
-        <a class="dropdown-toggle" href="{{ route('show_all_task') }}" >
+        <a  href="{{ route('show_all_task') }}" >
             Tasks
+        </a>
+        <a  href="{{ route('supervisor.datapage') }}" >
+            Profile
         </a>
         {{-- <ul class="dropdown-menu bg-dark"> --}}
             {{-- <li><a class="dropdown-item text-white" href="">All Tasks</a></li>
@@ -23,7 +26,7 @@
     </div>
     <a href="#">Reports</a>
     <a href="#">Settings</a>
-    <form action="{{ route('approve-task') }}" method="POST">
+    <form action="{{ route('supervisor.logout') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-danger w-100">Logout</button>
     </form>

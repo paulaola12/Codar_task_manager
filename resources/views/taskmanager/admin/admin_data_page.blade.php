@@ -70,6 +70,7 @@
     <!-- Sidebar -->
   <x-sidebarr />
 
+
     <!-- Main Content -->
     <div class="content">
         <!-- Navbar -->
@@ -78,6 +79,12 @@
                 <a class="navbar-brand" href="#">Welcome, User</a>
             </div>
         </nav>
+
+            @if(session('admin'))
+                <div class="alert alert-success" id="admin_alert">
+                    {{ session('admin') }}
+                </div>
+            @endif
 
         <!-- User Details -->
         <div class="container mt-4">
@@ -96,19 +103,17 @@
                 <div class="col-md-8">
                     <div class="change-password">
                         <h4>Change Password</h4>
-                        <form>
+                        <form action="{{ route('admin.change_password') }}" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label for="currentPassword" class="form-label">Current Password</label>
-                                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+                                <input type="password" class="form-control" name="current_password" placeholder="Enter current password">
                             </div>
                             <div class="mb-3">
                                 <label for="newPassword" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                                <input type="password" class="form-control" name="new_password" placeholder="Enter new password">
                             </div>
-                            <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
-                            </div>
+                        
                             <button type="submit" class="btn">Change Password</button>
                         </form>
                     </div>
@@ -116,6 +121,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var alert = document.getElementById('admin_alert');
+            if (alert) {
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 1000);  
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

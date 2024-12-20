@@ -38,11 +38,12 @@ Route::get('/', [AdminController::class, 'index'])->name('index');
 // Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::prefix('admin')->group(function (){
    Route::get('show_register', [AdminController::class, 'show_register'])->name('show_register');
-   Route::get('show_login', [AdminController::class, 'show_login'])->name('admin.login');
+   Route::get('show_login', [AdminController::class, 'show_login'])->name('show.admin.login');
    Route::post('create_admin', [AdminController::class, 'create'])->name('admin.create');
    Route::post('login_user', [AdminController::class, 'login'])->name('login.admin');
-   Route::post('logout', [AdminController::class, 'logout'])->name('admin.logina');
+   Route::post('logout', [AdminController::class, 'logout'])->name('admin.logout');
    Route::get('data_page', [AdminController::class, 'show_data_page'])->name('admin.datapage');
+   Route::post('change_password', [AdminController::class, 'change_password'])->name('admin.change_password');
 });
 
 // Route::get('/debug', function () {
@@ -67,23 +68,25 @@ Route::delete('/company_manager/{id}', [CompanyController::class, 'destroy']);
 
 
 // Intern Controller
-Route::middleware('auth:intern')->prefix('intern')->group(function () {
-Route::get('dashboard', [InternController::class, 'show_dashboard']);
-Route::post('logout', [InternController::class, 'logout'] )->name('intern.logout');   
-});
 Route::prefix('intern')->group(function (){
+// Route::middleware('auth:intern')->prefix('intern')->group(function () {
+Route::get('dashboard', [InternController::class, 'show_dashboard'])->name('intern.dashboard');
+Route::post('logout', [InternController::class, 'logout'] )->name('intern.logout');   
 Route::get('intern', [InternController::class, 'index'])->name('intern_listing');
 Route::post('store', [InternController::class, 'store'])->name('create_intern');
 Route::get('create', [InternController::class, 'create'])->name('new_intern');
 Route::get('show_login', [InternController::class, 'show_login'])->name('show_login');
 Route::post('log_in', [InternController::class, 'login'] )->name('intern_login');
-Route::delete('/{id}', [InternController::class, 'destroy']);
 Route::get('data_page', [InternController::class, 'show_data_page'])->name('intern.datapage');
-
+Route::post('change_password', [InternController::class, 'change_password'])->name('intern.change_passwordd');
+Route::delete('/{id}', [InternController::class, 'destroy']);
 Route::get('/{id}', [InternController::class, 'show']);
 Route::put('/{id}', [InternController::class, 'update']);
-
 });
+// Route::prefix('intern')->group(function (){
+
+
+// });
 
 
 // intern controller ends
@@ -109,13 +112,15 @@ Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::prefix('supervisor')->group(function (){
     Route::get('supervisor_register', [SupervisorController::class, 'show_register'])->name('show_supervisor_register');
     Route::post('store', [SupervisorController::class, 'store'])->name('create_supervisor');
-    Route::get('show_login', [SupervisorController::class, 'show_login'])->name('supervisor.login');
+    Route::get('show_login', [SupervisorController::class, 'show_login'])->name('supervisor.show.login');
     Route::post('login_supervisor', [SupervisorController::class, 'login'])->name('supervisor.logina');
     Route::post('logout', [SupervisorController::class, 'logout'])->name('supervisor.logout');
     Route::get('supervisor', [SupervisorController::class, 'index'])->name('supervisor_listing');
     Route::get('create', [SupervisorController::class, 'create'])->name('new_supervisor');
     Route::get('dashboard', [SupervisorController::class, 'show_dashboard'])->name('supervisor_dashbaord');
     Route::get('show_task_listing', [SupervisorController::class, 'show_all_task'])->name('show_all_task');
+    Route::get('data_page', [SupervisorController::class, 'show_data_page'])->name('supervisor.datapage');
+    Route::post('change_password', [AdminController::class, 'change_password'])->name('intern.change_password');
     Route::delete('/{id}', [SupervisorController::class, 'destroy'] );
     Route::get('/{id}', [SupervisorController::class, 'show']);
     Route::put('/{id}', [SupervisorController::class, 'update']);

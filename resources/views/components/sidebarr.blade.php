@@ -54,7 +54,7 @@
         <a href="{{ route('show_register') }}">Admins</a>
         <a href="{{ route('admin.datapage') }}">Profile Page</a>
         
-        <form action="{{ route('logout') }}" method="POST">
+        <form action="{{ route('admin.logout') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-danger w-100">Logout</button>
         </form>

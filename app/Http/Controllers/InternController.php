@@ -6,6 +6,7 @@ use App\Models\tasks;
 use App\Models\interns;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class InternController extends Controller
 {
@@ -148,6 +149,10 @@ class InternController extends Controller
      */
     public function show_dashboard()
     {
+        if(!Auth::guard('intern')->check()){
+            return redirect()->route('show_login');
+        }
+
        $intern = Auth::guard('intern')->user();
 
         $task = tasks::where('intern', $intern->intern_name)->get();
@@ -177,6 +182,37 @@ class InternController extends Controller
        ]);
         
     }
+
+      /**
+     * password chnage
+     */
+    public function change_password(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required'
+        ]);
+
+        // dd('Validation passed');
+
+
+        $intern = Auth::guard('intern')->user();
+
+        if (!Hash::check($request->current_password, $intern->password)) {
+            // return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+            return redirect()->route('intern.datapage')->with('intern', 'Current Password is Incorrect');
+
+        }
+
+        $intern->password = Hash::make($request->new_password);
+        $intern->save();
+
+        return redirect()->route('intern.datapage')->with('intern', 'Password Updated Succesfully!');
+
+        // $admin->new_password = Hash::make($request->new_password)
+    }
+
     
 
 }

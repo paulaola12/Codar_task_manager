@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Supervisor Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -68,7 +68,7 @@
 </head>
 <body>
     <!-- Sidebar -->
-  <x-internsidebar />
+  <x-supervisorbar />
 
     <!-- Main Content -->
     <div class="content">
@@ -85,11 +85,11 @@
                 <div class="col-md-4">
                     <div class="card p-3">
                         <img src="https://via.placeholder.com/100" alt="User Picture">
-                        <h5 class="mt-2">{{ $logged_in_intern->intern_name }}</h5>
-                        <p>{{ $logged_in_intern->email }}</p>
-                        <p>{{ $logged_in_intern->phone_number }}</p>
-                        <p>{{ $logged_in_intern->home_address }}</p>
-                        <p>{{ $logged_in_intern->studio }}(Studio)</p>
+                        <h5 class="mt-2">{{ $logged_in_supervisor->supervisor_name }}</h5>
+                        <p>{{ $logged_in_supervisor->email }}</p>
+                        <p>{{ $logged_in_supervisor->phone_number }}</p>
+                        <p>{{ $logged_in_supervisor->home_address }}</p>
+                        <p>{{ $logged_in_supervisor->studio }}(Assigned Studio)</p>
                     </div>
                 </div>
 
@@ -97,17 +97,19 @@
                 <div class="col-md-8">
                     <div class="change-password">
                         <h4>Change Password</h4>
-                        <form action="{{ route('intern.change_passwordd') }}" method="POST">
-                            @csrf
+                        <form>
                             <div class="mb-3">
                                 <label for="currentPassword" class="form-label">Current Password</label>
-                                <input type="password" class="form-control" name="current_password" placeholder="Enter current password">
+                                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
                             </div>
                             <div class="mb-3">
                                 <label for="newPassword" class="form-label">New Password</label>
-                                <input type="password" class="form-control" name="new_password" placeholder="Enter new password">
+                                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
                             </div>
-                        
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+                            </div>
                             <button type="submit" class="btn">Change Password</button>
                         </form>
                     </div>

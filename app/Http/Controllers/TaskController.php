@@ -258,7 +258,7 @@ public function approveTask(Request $request)
     $task = tasks::find($request->id);
     // dd(Auth::guard('admin')->user()->role); 
     // if (Auth::guard('supervisor')->user()->role !== 'supervisor' && Auth::guard('admin')->user()->role !== 'admin') {
-    //     return response()->json(['message' => 'Unauthorized.'], 403);
+    //    
     // }
 
     $user = Auth::guard('admin')->user() ?: Auth::guard('supervisor')->user();
@@ -266,7 +266,7 @@ public function approveTask(Request $request)
     // dd($user);
 
     if (!$user || !in_array($user->role, ['admin', 'supervisor'])) {
-        return response()->json(['message' => 'Unauthorized.'], 403);
+       
     }
 
 // Proceed with your logic for admin or supervisor...
@@ -298,12 +298,12 @@ public function approveTask(Request $request)
 //     }
 
 if ($user->role === 'supervisor') {
-    return redirect('/supervisor/dashboard')->with('supervisor', 'Task Approved Successfully');
-} elseif ($user->role === 'admin') {
+     return redirect('/supervisor/dashboard')->with('supervisor', 'Task Approved Successfully');
+    } elseif ($user->role === 'admin') {
     return redirect('/')->with('admin', 'Task Approved Successfully');
-}
-} else {
-// Handle unsuccessful case
+   }
+}  else {
+
 if (Auth::guard('supervisor')->check()) {
     return redirect('/supervisor/dashboard')->with('supervisor', 'Unsuccessful');
 } elseif (Auth::guard('admin')->check()) {

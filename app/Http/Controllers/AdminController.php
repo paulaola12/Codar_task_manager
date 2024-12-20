@@ -10,6 +10,7 @@ use App\Models\interns;
 use App\Models\supervisors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -18,6 +19,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+
+        if(!Auth::guard('admin')->check()){
+            return redirect()->route('show.admin.login');
+        }
         $supervisor_count = supervisors::where('role', 'supervisor')->count();
         $intern_count = interns::where('role', 'intern')->count();
         $total_tasks = tasks::count();
@@ -121,7 +126,7 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('/admin/show_register');
+        return redirect()->route('show.admin.login');
     }
 
      /**
@@ -139,11 +144,31 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * password chnage
      */
-    public function show(string $id)
+    public function change_password(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required'
+        ]);
+
+        // dd('Validation passed');
+
+
+        $admin = Auth::guard('admin')->user();
+
+        if (!Hash::check($request->current_password, $admin->password)) {
+            return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+        }
+
+        $admin->password = Hash::make($request->new_password);
+        $admin->save();
+
+        return redirect()->route('admin.datapage')->with('admin', 'Password Updated Succesfully!');
+
+        // $admin->new_password = Hash::make($request->new_password)
     }
 
     /**

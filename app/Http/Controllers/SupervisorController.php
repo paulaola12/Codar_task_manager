@@ -14,6 +14,7 @@ class SupervisorController extends Controller
      */
     public function index()
     {
+       
         $supervisor = supervisors::oldest()->get();
 
         return view('taskmanager.supervisor.supervisor_listing', [
@@ -134,7 +135,11 @@ class SupervisorController extends Controller
     }
 
     public function show_dashboard()
-    {
+    {   
+        if(!Auth::guard('supervisor')->check()){
+            return redirect()->route('supervisor.show.login');
+        }
+        
         $supervisor = Auth::guard('supervisor')->user();
 
         $tasks = tasks::where('supervisor', $supervisor->supervisor_name)->where('is_approved', 0)->get();
@@ -175,6 +180,17 @@ class SupervisorController extends Controller
         return view('dashboard.supervisor_sidebar_content.supervisor_task_listing', [
             'Alltasks' => $Alltasks
         ]);         
+    }
+
+    public function show_data_page()
+    {
+        $logged_in_supervisor = Auth::guard('supervisor')->user();
+        $logged_in_supervisor = supervisors::find( $logged_in_supervisor->id);
+
+       return view('taskmanager.supervisor.supervisor_data_page',[
+        'logged_in_supervisor' => $logged_in_supervisor,
+       ]);
+        
     }
 
     // show supervisor Awaiting Approval
