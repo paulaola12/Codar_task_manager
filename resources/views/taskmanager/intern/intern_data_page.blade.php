@@ -75,7 +75,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Welcome, User</a>
+                <a class="navbar-brand" href="#">Welcome, {{ Auth::guard('intern')->user()->intern_name }}</a>
             </div>
         </nav>
 
@@ -83,8 +83,9 @@
         <div class="container mt-4">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card p-3">
-                        <img src="https://via.placeholder.com/100" alt="User Picture">
+                    <div class="card p-3 d-flex justify-content-center align-items-center">
+                        {{-- <img src="https://via.placeholder.com/100" alt="User Picture"> --}}
+                        <img src="{{ $logged_in_intern->image ? asset('storage/' . $logged_in_intern->image) : asset('assets/images/backgrounds/rocket.png') }}" alt="No Image here" >
                         <h5 class="mt-2">{{ $logged_in_intern->intern_name }}</h5>
                         <p>{{ $logged_in_intern->email }}</p>
                         <p>{{ $logged_in_intern->phone_number }}</p>

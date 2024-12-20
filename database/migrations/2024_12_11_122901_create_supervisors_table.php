@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('home_address');
             $table->string('studio');
+            $table->string('image');
             $table->string('password');
             $table->string('role');
             $table->timestamps();

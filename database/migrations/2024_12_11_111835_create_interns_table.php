@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('home_address')->nullable();
             $table->string('class')->nullable();
             $table->string('studio')->nullable();
+            $table->string('image')->nullable();
             $table->string('password');
             $table->string('role');
             $table->timestamps();

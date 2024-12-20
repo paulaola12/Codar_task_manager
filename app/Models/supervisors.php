@@ -23,6 +23,7 @@ class supervisors extends Authenticatable
         'phone_number',
         'home_address',
         'studio',
+        'image',
         'password',
         'role',
 

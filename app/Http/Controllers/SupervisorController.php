@@ -43,6 +43,7 @@ class SupervisorController extends Controller
             'phone_number' => 'required',
             'home_address' => 'required',
             'studio' => 'required',
+            'image' => 'nullable',
             'password'=> 'required',
             'role' => 'required',
         ]);

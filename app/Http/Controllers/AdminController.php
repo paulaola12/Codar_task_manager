@@ -64,11 +64,13 @@ class AdminController extends Controller
     public function create(Request $request)
     {
         // dd($request->all());
+
        $formField = $request -> validate([
             'name' => 'required',
             'email' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
+            'image' => 'nullable',
             'password'=> 'required',
             'role' => 'required'
 

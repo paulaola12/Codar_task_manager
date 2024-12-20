@@ -46,6 +46,7 @@ class InternController extends Controller
            'home_address'  => 'required',
            'class' => 'required',
            'studio'  => 'required',
+           'image' => 'nullable',
            'password'  => 'required',
            'role' => 'required'
 

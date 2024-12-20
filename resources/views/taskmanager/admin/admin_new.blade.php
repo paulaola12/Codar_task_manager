@@ -73,7 +73,7 @@
         <!-- Form Content -->
         <div class="form-container">
             <h4 class="mb-4">Create Admin Account</h4>
-            <form action="{{ route('login.admin') }}" method="POST">
+            <form action="{{ route('admin.create') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-4">
                     <label for="projectName" class="form-label">Intern Name</label>
@@ -96,14 +96,19 @@
                 </div>
 
                 <div class="mb-4">
+                    <label for="projectName" class="form-label">Picture</label>
+                    <input type="file" class="form-control" id="projectName"  name="image" placeholder="Select IMage">
+                </div>
+
+                <div class="mb-4">
                     <label for="projectName" class="form-label">Password</label>
                     <input type="text" class="form-control" id="projectName"  name="password" placeholder="Enter Home Address">
                 </div>
 
                 <div class="mb-4">
-                    <label for="projectName" class="form-label">Role</label> 
+                    {{-- <label for="projectName" class="form-label">Role</label>  --}}
                     <input type="text" class="form-control" id="projectName"  value="admin" name="role" hidden> 
-                /div> 
+                </div> 
 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -25,6 +25,7 @@ class interns extends Authenticatable
            'home_address',
            'class',
            'studio',
+           'image',
            'password',
            'role'
       ];

@@ -73,7 +73,7 @@
         <!-- Form Content -->
         <div class="form-container">
             <h4 class="mb-4">Add New Intern</h4>
-            <form action="{{ route('create_intern') }}" method="POST">
+            <form action="{{ route('create_intern') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-4">
                     <label for="projectName" class="form-label">Intern Name</label>
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="projectName" class="form-label">Intern Name</label>
+                    <label for="projectName" class="form-label">Intern Email</label>
                     <input type="email" class="form-control" id="projectName" name="email" placeholder="Enter Email">
                 </div>
 
@@ -109,6 +109,11 @@
                             <option value="Lekki">Lekki</option>
                             <option value="Ikeja">Ikeja</option>
                         </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="name" class="form-label" >Picture</label>
+                        <input type="file" class="form-control bg-body-tertiary bg-secondary-subtle" name="image" placeholder="Enter password">
                     </div>
 
                     <div class="col-md-6">
